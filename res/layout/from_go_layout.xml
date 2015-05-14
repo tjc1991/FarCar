@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/from_go_list_item_height" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="32dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/business_icon_here_to_there" />
+
+    <TextView
+        android:id="@+id/start_adds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_marginLeft="25dp"
+        android:layout_toRightOf="@+id/imageView1"
+        android:textColor="@color/loadcplor"
+        android:textSize="20sp"
+        android:text="长春" />
+
+    <TextView
+        android:id="@+id/final_adds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_alignLeft="@+id/start_adds"
+        android:textColor="@color/custom_pottery_red"
+        android:textSize="20sp"
+        android:text="通化" />
+
+</RelativeLayout>

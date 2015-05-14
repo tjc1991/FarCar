@@ -1,0 +1,112 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    <style name="radioButtonStyle">
+        <item name="android:button">@null</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:textColor">#999999</item>
+    </style>
+    
+      <style name="CalendarTitle">
+    <item name="android:textSize">@dimen/calendar_text_medium</item>
+    <item name="android:textColor">@color/calendar_text_active</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="CalendarCell">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:gravity">center</item>
+    
+  </style>
+
+  <style name="CalendarCell.DayHeader">
+    <item name="android:textColor">@color/calendar_text_active</item>
+    <item name="android:textSize">@dimen/calendar_text_small</item>
+  </style>
+
+  <style name="CalendarCell.CalendarDate">
+    <item name="android:textSize">@dimen/calendar_text_medium</item>
+    <item name="android:background">@drawable/calendar_bg_selector</item>
+    <item name="android:textColor">@color/calendar_text_selector</item>
+    <item name="android:clickable">true</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+  
+  <!-- 违章查询 -->
+    <style name="csy_row">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/csy_row_h</item>
+        <item name="android:paddingLeft">@dimen/csy_pd</item>
+    </style>
+
+    <style name="csy_row1" parent="csy_row">
+        <item name="android:background">@drawable/csy_form_row</item>
+    </style>
+
+    <style name="csy_row_label">
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">@dimen/csy_label_w</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/csy_label</item>
+    </style>
+
+    <style name="csy_textbox">
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/csy_text</item>
+        <item name="android:textColorHint">@color/csy_hint</item>
+        <item name="android:background">@drawable/csy_textbox</item>
+        <item name="android:textSize">@dimen/csy_text_ts</item>
+    </style>
+
+    <style name="csy_textbox1" parent="csy_textbox">
+        <item name="android:layout_marginRight">@dimen/csy_icon_w</item>
+    </style>
+
+    <style name="csy_row_icon">
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">@dimen/csy_icon_w</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:scaleType">center</item>
+    </style>  
+    
+        <style name="mystyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/bg</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    
+   <style name="StyleProgressBarMini" parent="@android:style/Widget.ProgressBar.Horizontal">
+		<item name="android:maxHeight">50dip</item>
+		<item name="android:minHeight">20dip</item>
+		<item name="android:indeterminateOnly">false</item>
+		<item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+		<item name="android:progressDrawable">@drawable/shape_progressbar_mini</item>
+	</style>
+
+</resources>

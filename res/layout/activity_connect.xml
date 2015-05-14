@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffecedf1"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/activity_actionbar" />
+    
+   <LinearLayout
+        android:id="@+id/wode_call"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="15.0dip"
+        android:paddingRight="15.0dip" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:paddingLeft="0dip"
+                android:paddingRight="24.0dip" >
+
+                <ImageView
+                    android:id="@+id/wode_call_icon"
+                    android:layout_width="24.0dip"
+                    android:layout_height="24.0dip"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="7.0dip"
+                    android:layout_marginRight="7.0dip"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/mypage_list_icon_call" />
+
+                <TextView
+                    android:id="@+id/wode_call_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical"
+                    android:text="0395-5560333"
+                    android:textColor="@color/custom_actionbar_red"
+                    android:textSize="@dimen/custom_title" />
+            </LinearLayout>
+        </LinearLayout>
+    
+
+</LinearLayout>

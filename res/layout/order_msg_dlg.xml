@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_order_fragment_cover_noon" >
+
+    <RelativeLayout
+        android:id="@+id/msg_head_rv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/msg_head_bg"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/end_order_agreement_bg" />
+
+        <ImageView
+            android:id="@+id/real_prepare_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/msg_head_bg"
+            android:layout_alignTop="@+id/msg_head_bg"
+            android:src="@drawable/order_fragment_type_instant" />
+
+        <Button
+            android:id="@+id/close_img_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/main_order_ic_close_instant_selector" />
+
+        <TextView
+            android:id="@+id/cr_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="乘车人数:5人"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/msg_from_rv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/msg_head_rv"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="13dp"
+            android:src="@drawable/common_ic_address_from" />
+
+        <TextView
+            android:id="@+id/msg_from_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="13dp"
+            android:text="hahaha"
+            android:textColor="@color/black_555555"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/msg_to_lv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/msg_from_rv"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="13dp"
+            android:src="@drawable/common_ic_address_to" />
+
+        <TextView
+            android:id="@+id/msg_go_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="13dp"
+            android:text="hahaha"
+            android:textColor="@color/black_555555"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/msg_to_lv"
+        android:layout_gravity="center"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/msg_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="13dp"
+            android:text="明天4点30分"
+            android:textColor="@color/loadcplor"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/qd_btn"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="抢单"
+        android:gravity="center_horizontal"
+        android:paddingTop="20dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:background="@drawable/qd_image_selector" />
+
+    <TextView
+        android:id="@+id/qd_time_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/qd_btn"
+        android:layout_marginBottom="20dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:text="" />
+
+</RelativeLayout>

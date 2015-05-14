@@ -1,0 +1,45 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    
+    <dimen name="wemall_user_center_icon_width">33.0dip</dimen>
+    <dimen name="wemall_user_center_icon_height">33.0dip</dimen>
+    <dimen name="wemall_user_center_user_icon_layout_width">50.0dip</dimen>
+    <dimen name="wemall_user_center_user_icon_layout_height">50.0dip</dimen>
+    <dimen name="wemall_all_titlebar_height">48.0dip</dimen>
+    <dimen name="netstat_height">40.0dip</dimen>
+    <dimen name="wemall_line_horizon">1.0px</dimen>
+    <dimen name="abc_action_bar_default_height">48.0dip</dimen>
+    <dimen name="waimai_actionbar_container_height">50.0dip</dimen>
+    <dimen name="waimai_actionbar_container_icon_margin_left">4.0dip</dimen>
+    <dimen name="custom_title">16.0sp</dimen>
+    <dimen name="custom_title_bar">18.0sp</dimen>
+    <dimen name="from_go_list_item_height">100.0dip</dimen>
+    <dimen name="padding_search_bar">5dp</dimen>
+    <dimen name="city_sp">16.0sp</dimen>
+    <dimen name="city_splarge">20.0sp</dimen>
+    
+  <dimen name="calendar_day_headers_paddingbottom">4dp</dimen>
+  <dimen name="calendar_month_topmargin">16dp</dimen>
+  <dimen name="calendar_month_title_bottommargin">4dp</dimen>
+  <dimen name="calendar_text_medium">18sp</dimen>
+  <dimen name="calendar_text_small">14sp</dimen>
+  
+  <!-- 车辆违章 -->
+    <dimen name="csy_pd">10.0dp</dimen>
+    <dimen name="csy_mg">15.0dp</dimen>
+    <dimen name="csy_label_w">70.0dp</dimen>
+    <dimen name="csy_icon_w">40.0dp</dimen>
+    <dimen name="csy_row_h">64.0dp</dimen> 
+    <dimen name="csy_item_h">52.0dp</dimen>    
+    <dimen name="csy_tip_h">30.0dp</dimen>
+    <dimen name="csy_btn_h">46.0dp</dimen> 
+      
+    <dimen name="csy_label_ts">13.0sp</dimen>
+    <dimen name="csy_tip_ts">14.0sp</dimen>
+    <dimen name="csy_text_ts">16.0sp</dimen>
+    <dimen name="csy_title_ts">18.0sp</dimen>       
+
+</resources>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <!-- 根据颜色值命名 -->
+    <color name="custom_actionbar_red">#ffff2e51</color>
+    <color name="white_ffffff">#FFFFFF</color>
+    <color name="red">#ff0000</color>
+    <color name="black">#000000</color>
+    <color name="gray_bg">#ffeeeeec</color>
+    <color name="blue">#0000ff</color>
+    <color name="lightred">#cd2626</color>
+    <color name="orange">#daa520</color>
+    <color name="gray">#666666</color>
+    <color name="green">#00ff00</color>
+    <color name="lightgreen">#3bd4c9</color>
+    <color name="saddlebrown">#8B4513</color>
+    <color name="transparent">#50000000</color>
+    <color name="grid_border">#FFC6C6C6</color>
+    <color name="buttonchecked">#45C01A</color>
+    <color name="buttoncommon">#999999</color>
+    <color name="black_555555">#ff555555</color>
+    <color name="green_56af43">#ff56af43</color>
+    <color name="gray_939393">#ff939393</color>
+    <color name="gray_999999">#ff999999</color>
+    <color name="gray_a999999">#44999999</color>
+    <color name="white_e0e0e0">#ffe0e0e0</color>
+    <color name="frame_f9f9f9">#fff2f4f5</color>
+    <color name="black_444444">#ff444444</color>
+    <color name="gray_efefef">#ffefefef</color>
+    <color name="gray_white">#ebebeb</color>
+    
+    <!-- 根据用途命名 -->
+    <color name="wemall_menu_item">#BFBFBF</color>
+    <color name="wemall_menu_item_back_n">#00000000</color>
+    <color name="wemall_menu_item_back_p">#22DEDEDE</color>
+    <color name="wemall_menu_line">#DD313131</color>
+    <color name="wemall_menu_title">#BFBFBF</color>
+    <color name="wemall_menu_back">#FF313131</color>
+    <color name="wemall_splash_all">#999999</color>
+    <color name="wemall_welcome_back">#FFFFFF</color>
+    <color name="wemall_all_titlebar_back">#394A5A</color>
+    <color name="wemall_radiobutton_back">#00000000</color>
+    <color name="wemall_detailsbar_back">#66000000</color>
+    <color name="net_stat_color">#ffffc0</color>
+    
+    <color name="loadcplor">#08C65D</color>
+    <color name="loadcplor_select">#43CD80</color>
+    <color name="callcol">#EEAD0E</color>
+    <color name="callcol_select">#EE9A00</color>
+    <color name="wzcol">#FF6A6A</color>
+    <color name="wzcol_select">#CD4F39</color> 
+    <color name="abcol">#33ccff</color>
+    <color name="abcol_select">#3399ff</color>
+    <color name="usecol">#008B8B</color>
+    <color name="usecol_select">#00868B</color>             
+    <color name="custom_pottery_red">#fffa435e</color>
+    <color name="divider_list">#cccccc</color>
+    
+    <!--  车辆违章界面 -->
+    <color name="csy_bg_body">#ffe9e9e9</color> 
+    <color name="csy_row_on">#fff0f0f0</color> 
+    <color name="csy_border">#ffd0d0d0</color>
+	<color name="csy_green">#ff3caa0f</color>	
+	<color name="csy_green_on">#ff28780a</color>
+	<color name="csy_blue">#ff0a7dd2</color>
+	<color name="csy_blue_on">#ff0a64aa</color>	
+    <color name="csy_label">#ff969696</color>
+    <color name="csy_text">#ff555555</color>
+    <color name="csy_hint">#ffc6c6c6</color>        
+    
+    <!--搜索界面  -->
+     <color name="yellow_page_search_bg">#fffffbfa</color>
+     <color name="login_form_hint">#ffb5b5b5</color>
+     <color name="yellow_light">#ffefa717</color>
+     <color name="white">#ffffffff</color>
+     
+     <color name="city_color">#00ccff</color>
+   
+    <!-- cander -->
+  <color name="calendar_active_month_bg">#fff5f7f9</color>
+  <color name="calendar_bg">#ffffffff</color>
+  <color name="calendar_divider">#ffbababa</color>
+  <color name="calendar_inactive_month_bg">#ffd7d9db</color>
+  <color name="calendar_selected_day_bg">#ff379bff</color>
+  <color name="calendar_selected_range_bg">#ff96caff</color>
+  <color name="calendar_text_inactive">#40778088</color>
+  <color name="calendar_text_active">#ff778088</color>
+  <color name="calendar_text_selected">#ffffffff</color>
+  <color name="calendar_text_unselectable">#7f778088</color>
+  
+    <color name="about_us_copyright">#ffbdbdbd</color>
+    <color name="setting_common_bg">#ffe5e5e5</color>
+    <color name="setting_common_line">#ffd1d1d1</color>
+    <color name="setting_common_logout_normal">#ffff5533</color>
+    <color name="setting_common_logout_press">#ffdd3333</color>  
+    
+    
+    
+    
+
+</resources>

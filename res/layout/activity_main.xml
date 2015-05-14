@@ -1,0 +1,123 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffffff">
+    
+	   <RelativeLayout
+	       android:id="@+id/slidemenubar"
+	       android:layout_width="fill_parent"
+	       android:layout_height="@dimen/wemall_all_titlebar_height"
+	       android:background="@color/loadcplor" >
+	       
+	       <Button 
+	            	android:id="@+id/refresh_btn"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/green_btn"
+	            android:textColor="@color/white"
+	            android:layout_alignParentLeft="true"
+	            android:layout_marginLeft="10dp"
+	            android:text="刷新"/>
+	
+	        <TextView
+	            android:id="@+id/main_title_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="fill_parent"
+	            android:gravity="center_vertical"
+	            android:layout_centerInParent="true"
+	            android:minWidth="30.0dip"
+	            android:singleLine="true"
+	            android:text="@string/app_name"
+	            android:textColor="@color/white"
+	            android:textSize="22sp" />
+	        
+	        <Button 
+	            	android:id="@+id/city_choice_btn"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/green_btn"
+	            android:textColor="@color/white"
+	            android:layout_alignParentRight="true"
+	            android:layout_marginRight="10dp"
+	            android:text="通讯城市"/>
+	        
+	    </RelativeLayout>
+	    
+	   <!-- 网络状态显示 -->
+	   <RelativeLayout
+	       android:id="@+id/netstat_rv"
+	       android:layout_below="@id/slidemenubar"
+	       android:layout_width="fill_parent"
+	       android:layout_height="@dimen/netstat_height"
+	       android:background="@color/net_stat_color" 
+	       android:visibility="gone">
+	        
+	       <ImageView
+	           android:id="@+id/netstat_img" 
+	           android:layout_width="20dp"
+	           android:layout_height="20dp"
+	           android:layout_centerVertical="true"
+	           android:src="@drawable/group_buy_notice_icon"
+	           android:layout_marginLeft="20dp"/>
+	
+	        <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="fill_parent"
+	            android:gravity="center_vertical"
+	            android:layout_toRightOf="@id/netstat_img"
+	            android:singleLine="true"
+	            android:layout_marginLeft="5dp"
+	            android:text="@string/net_stat"
+	            android:textColor="@color/black_555555"
+	            android:textSize="14sp" />
+	    </RelativeLayout>	   
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vPager"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@id/netstat_rv"
+                android:paddingBottom="52dp"
+                android:persistentDrawingCache="animation" />
+
+            <RadioGroup
+                android:id="@+id/main_radiogroup"
+                android:layout_width="fill_parent"
+                android:layout_height="52dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="bottom|left"
+                android:background="@drawable/wemall_mainui_bar_bg"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+         
+                <RadioButton
+                    android:id="@+id/type_tab_cart"
+                    style="@style/radioButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/wemall_radiobutton_back"
+                    android:drawableTop="@drawable/wemall_tab_good_draw"
+                    android:gravity="center_horizontal"
+                    android:text="@string/wemall_type_cart"
+                    android:textColor="@color/wemall_button_text_color" />
+
+                <RadioButton
+                    android:id="@+id/type_tab_user"
+                    style="@style/radioButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/wemall_radiobutton_back"
+                    android:drawableTop="@drawable/wemall_tab_user_draw"
+                    android:gravity="center_horizontal"
+                    android:text="@string/wemall_type_user"
+                    android:textColor="@color/wemall_button_text_color" />
+            </RadioGroup>
+</RelativeLayout>

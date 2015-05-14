@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:scrollbars="none"
+    android:background="@color/white"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        
+        <include layout="@layout/activity_actionbar"/>   
+        
+        <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <LinearLayout 
+                android:layout_width="0dp"
+                android:layout_weight="1"  
+                android:gravity="center"
+                android:layout_height="fill_parent">
+                
+                <ImageView 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_location_business"/>
+            </LinearLayout>            
+            
+            <LinearLayout 
+                android:layout_width="0dp"
+                android:layout_weight="4"  
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+		            <RelativeLayout
+		                android:layout_width="fill_parent"
+		                android:layout_height="49dp" >
+
+			            <TextView 
+			                android:textSize="28.0sp" 
+			                android:textColor="#ff444444" 
+			                android:textColorHint="@color/about_us_copyright" 
+			                android:hint="@string/city_name_from"
+			                android:ellipsize="end" 
+			                android:gravity="center_vertical" 
+			                android:id="@+id/city_from_btn"
+			                android:clickable="true"                 
+			                android:background="@drawable/transparent_gray_selector" 
+			                android:layout_width="fill_parent" 
+			                android:layout_height="fill_parent" 
+			                android:singleLine="true" 
+			                />	
+		               <View 
+		                   android:layout_width="fill_parent"
+		                   android:layout_height="1dp"
+		                   android:layout_alignParentBottom="true"
+		                   android:background="@drawable/bg_cut_line"/>			                			            
+<!-- 
+		                <ImageView
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:layout_alignParentRight="true"
+		                    android:layout_centerVertical="true"
+		                    android:src="@drawable/payeco_qunar_ckb_arrow" />
+
+		                <View
+		                    android:layout_width="fill_parent"
+		                    android:layout_height="1dp"
+		                    android:layout_alignParentBottom="true"
+		                    android:background="@drawable/bg_cut_line" /> -->
+		            </RelativeLayout>
+
+		            <RelativeLayout 
+		                android:layout_width="fill_parent"
+		                android:layout_height="49dp">
+		                
+			            <TextView 
+			                android:textSize="28.0sp" 
+			                android:textColor="#ff444444" 
+			                android:textColorHint="@color/about_us_copyright" 
+			                android:hint="@string/city_name_go"
+			                android:ellipsize="end" 
+			                android:gravity="center_vertical" 
+			                android:id="@+id/city_go_btn"
+			                android:clickable="true"                 
+			                android:background="@drawable/transparent_gray_selector" 
+			                android:layout_width="fill_parent" 
+			                android:layout_height="fill_parent" 
+			                android:singleLine="true" 
+			                />					                
+		               	<View 
+		                   android:layout_width="fill_parent"
+		                   android:layout_height="1dp"
+		                   android:layout_alignParentBottom="true"
+		                   android:background="@drawable/bg_cut_line"/>
+<!-- 		               <ImageView 
+		                   android:layout_width="wrap_content"
+		                   android:layout_height="wrap_content"
+		                    android:layout_centerVertical="true"		                   
+		                   android:layout_alignParentRight="true"
+		                   android:src="@drawable/payeco_qunar_ckb_arrow"/>
+		               
+		               <View 
+		                   android:layout_width="fill_parent"
+		                   android:layout_height="1dp"
+		                   android:layout_alignParentBottom="true"
+		                   android:background="@drawable/bg_cut_line"/>	 -->	                
+		            </RelativeLayout> 
+			            		            		            
+		    </LinearLayout> 
+		                
+        </LinearLayout>
+        
+        <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:orientation="horizontal">
+          
+         <TextView 
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/loadcplor"
+               android:textSize="20sp"
+               android:layout_marginTop="15dp"
+               android:text="@string/city_pay"/>
+           
+          <TextView 
+              android:id="@+id/pay_total_money"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="40sp"
+               android:layout_marginTop="15dp"              
+               android:textColor="@color/custom_pottery_red"               
+               android:layout_marginLeft="10dp"
+               />
+          
+          <TextView
+              android:id="@+id/pay_people"               
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="30sp"
+               android:layout_marginTop="25dp"              
+               android:textColor="@color/custom_pottery_red"               
+               android:layout_marginLeft="2dp"
+               android:visibility="gone"
+               android:text="/人"/>            
+        </LinearLayout>
+        
+      <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+          
+         <Button 
+               android:id="@+id/search_money"
+               android:layout_width="fill_parent"
+               android:layout_height="60dp"
+			   android:layout_gravity="center"
+			   android:layout_marginLeft="20dp"
+			   android:layout_marginRight="20dp"
+			   android:textColor="@color/white"
+			   android:background="@drawable/green_btn"              			   
+               android:text="路费查询"/>
+           
+         <Button
+               android:id="@+id/call_car_now" 
+               android:layout_width="fill_parent"
+               android:layout_height="60dp"
+               android:layout_marginTop="20dp"
+               android:background="@drawable/green_btn"              
+			   android:layout_gravity="center"			   
+			   android:layout_marginLeft="20dp"
+			   android:layout_marginRight="20dp"			   
+			   android:textColor="@color/white"			   
+               android:text="现在叫车"/>
+            
+        </LinearLayout>
+        
+    </LinearLayout>
+    
+
+</ScrollView>

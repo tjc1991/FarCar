@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:id="@+id/order_pannel" 
+        android:gravity="center_vertical" 
+        android:orientation="horizontal" 
+        android:paddingLeft="18.0dip"
+        android:layout_marginTop="50.0dip"
+        android:background="@color/white"                 
+        android:layout_width="fill_parent" 
+        android:layout_height="100.0dip">
+        
+        <ImageView 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="12.0dip" 
+            android:layout_marginBottom="12.0dip"
+            android:src="@drawable/icon_location_business" 
+            android:contentDescription="@null" />
+        
+        <LinearLayout 
+            android:orientation="vertical" 
+            android:layout_width="fill_parent" 
+            android:layout_height="fill_parent" 
+            android:layout_marginLeft="12.0dip">
+            
+            <TextView 
+                android:textSize="18.0sp" 
+                android:textColor="#ff444444" 
+                android:textColorHint="@color/about_us_copyright" 
+                android:hint="@string/city_name_from"
+                android:ellipsize="end" 
+                android:gravity="center_vertical" 
+                android:id="@+id/tv_from"
+                android:clickable="true"                 
+                android:background="@drawable/transparent_gray_selector" 
+                android:layout_width="fill_parent" 
+                android:layout_height="0.0dip" 
+                android:singleLine="true" 
+                android:layout_weight="1.0" />
+            
+            <include 
+                android:layout_width="fill_parent" 
+                android:layout_height="1.0px" 
+                layout="@layout/custom_line" />
+            
+            <TextView 
+                android:textSize="18.0sp" 
+                android:textColor="#ff444444" 
+                android:textColorHint="@color/about_us_copyright" 
+                android:hint="@string/city_name_go"                
+                android:ellipsize="end" 
+                android:gravity="center_vertical" 
+                android:id="@+id/tv_to" 
+                android:clickable="true"
+                android:background="@drawable/transparent_gray_selector" 
+                android:layout_width="fill_parent" 
+                android:layout_height="0.0dip" 
+                android:singleLine="true" 
+                android:layout_weight="1.0" />
+            
+        </LinearLayout>
+    </LinearLayout>
+</merge>

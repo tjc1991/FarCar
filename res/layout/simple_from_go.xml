@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/from_go"
+    android:layout_marginTop="10dp"
+    android:layout_height="120dp" >
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="3dp"
+        android:layout_above="@+id/imageView4"
+        android:layout_marginLeft="33dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/g_menu_icon_sort_d" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/imageView3"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="29dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/car_select_position_start" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="29dp"       
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/car_select_position_end" />
+
+    <TextView
+        android:id="@+id/tx_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_marginLeft="25dp"
+        android:layout_toRightOf="@+id/imageView1"
+        android:text="长春"
+        android:textColor="@color/loadcplor"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tx_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tx_from"
+        android:layout_alignTop="@+id/imageView4"
+        android:text="通化"
+        android:textColor="@color/custom_pottery_red"
+        android:textSize="30sp" />
+
+</RelativeLayout>

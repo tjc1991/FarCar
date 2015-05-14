@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cldxk.farcar"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="14" />
+    
+	<!--连接网络权限,用于执行云端语音能力 -->
+	<uses-permission android:name="android.permission.INTERNET"/> 
+	<!--获取手机录音机使用权限,听写、识别、语义理解需要用到此权限 --> 
+	<uses-permission android:name="android.permission.RECORD_AUDIO"/> 
+	<!--读取网络信息状态 -->
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> 
+	<!--获取当前wifi状态 -->
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> 
+	<!--允许程序改变网络连接状态 -->
+	<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/> 
+	<!--读取手机信息权限 -->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/> 
+	<!--读取联系人权限,上传联系人需要用到此权限 -->
+	<uses-permission android:name="android.permission.READ_CONTACTS"/>
+	
+	<!-- 短信验证功能 -->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.RECEIVE_SMS" />
+	<uses-permission android:name="android.permission.GET_TASKS" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+	<!-- 百度地图 -->
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />  
+	<uses-permission android:name="android.permission.USE_CREDENTIALS" />  
+	<uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />  
+	<uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+	<uses-permission android:name="android.permission.BROADCAST_STICKY" />  
+	<uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />  
+	
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ys_icon_baomis"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        
+        android:name="com.cldxk.app.EApplication" >
+       
+        <!-- 百度地图 -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="NUL4xEm0j2UxujkwuozTOCSS" /> 
+               
+        <activity
+            android:name="com.cldxk.app.splash.SplashActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name="com.cldxk.farcar.MainActivity"></activity>       
+        <activity android:name="com.cldxk.app.splash.WelcomeActivity"></activity>        
+        <activity android:name="com.cldxk.plug.user.GplActivity"></activity>
+        <activity android:name="com.cldxk.plug.user.LoginActivity"></activity>
+        <activity android:name="com.cldxk.plug.user.RecoveryPasswdActivity"></activity>
+        <activity android:name="com.cldxk.plug.user.RegistActivity"></activity>
+        <activity android:name="com.cldxk.farcar.ui.OrderMsgShowActivity"></activity>                  
+        <activity android:name="com.cldxk.farcar.ui.AboutActivity"></activity>  
+        <activity android:name="com.cldxk.farcar.ui.ConnectActivity"></activity>  
+        <activity android:name="com.cldxk.farcar.ui.UserOrderActivity"></activity>                    
+        <activity android:name="com.cldxk.farcar.ui.UseHelpActivity"></activity>                       
+        <activity android:name="com.cldxk.farcar.ui.AttentActivity"></activity>  
+        <activity android:name="com.cldxk.farcar.ui.CitySettingActivity"></activity>                
+        <activity android:name="com.cldxk.app.breakrules.CityList"></activity>        
+        <activity android:name="com.cldxk.app.breakrules.ProvinceList"></activity>        
+        <activity android:name="com.cldxk.app.breakrules.RulesActivity"></activity>        
+        <activity android:name="com.cldxk.app.breakrules.ShortNameList"></activity>        
+        <activity android:name="com.cldxk.app.breakrules.WeizhangResult"></activity>               
+        <activity android:name="com.cldxk.farcar.ui.TtsDemoActivity"></activity>
+        <activity
+			android:name="cn.smssdk.SMSSDKUIShell"
+			android:configChanges="keyboardHidden|orientation|screenSize"
+			android:theme="@android:style/Theme.Translucent.NoTitleBar"
+			android:windowSoftInputMode="stateHidden|adjustResize" />        
+        <service android:name="com.cheshouye.api.client.WeizhangIntentService" />
+        <!-- 后台获取数据Service -->
+        <service android:name="com.cldxk.app.farcar.service.ReceiveMsgService"/>
+        
+        <!-- 网络变化广播静态注册 -->
+        <receiver android:name="com.cldxk.app.farcar.broadcast.NetReceiver">
+            <intent-filter android:priority="300">
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+        
+    </application>
+
+</manifest>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:id="@+id/action_bar"
+    android:layout_height="@dimen/waimai_actionbar_container_height"
+    android:background="@drawable/na_bg" >
+
+    <ImageView
+        android:id="@+id/fragment_actionbar_back"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="left|center"
+        android:layout_marginLeft="10dp"
+        android:background="@null"
+        android:clickable="true"
+        android:src="@drawable/actionbar_back_btn"
+         />
+    
+    <TextView
+        android:id="@+id/actionbar_title"       
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:text="新订单"
+        android:textColor="@color/loadcplor"
+        android:textSize="@dimen/custom_title_bar" />
+    
+</RelativeLayout>
