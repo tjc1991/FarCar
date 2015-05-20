@@ -46,6 +46,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -243,27 +244,32 @@ public class MessageFragment extends BaseFragment implements Callback{
 		
 		listItems.clear();
 		
-		//取出上次刷新时间
-		String lasttime = msharePreferenceUtil.loadStringSharedPreference("lasttime", "");
-		if(null == lasttime || lasttime.length() == 0)
-		{
-			return;
-		}
-		
-		//Log.i("tjc", "--->"+lasttime);
-		
-		//格式化日期
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
-		Date date  = null;
-		try {
-				date = sdf.parse(lasttime);
-		} catch (ParseException e) {
-		    e.printStackTrace();
-		}  
-		
+//		//取出上次刷新时间
+//		String lasttime = msharePreferenceUtil.loadStringSharedPreference("lasttime", "");
+//		if(null == lasttime || lasttime.length() == 0)
+//		{
+//			return;
+//		}
+//		
+//		//Log.i("tjc", "--->"+lasttime);
+//		
+//		//格式化日期
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		
+//		Date date  = null;
+//		try {
+//				date = sdf.parse(lasttime);
+//		} catch (ParseException e) {
+//		    e.printStackTrace();
+//		}  
+//		
 		BmobQuery query = new BmobQuery("ys_order");
-		query.addWhereGreaterThan("createdAt", new BmobDate(date));
+
+		//按照时间降序
+        query.order("-createdAt");
+		query.setLimit(10);
+		query.setSkip(0);
+		//query.addWhereGreaterThan("createdAt", new BmobDate(date));
 		query.addWhereLessThan("orderStatues", 1);
         //添加查询约束条件
         try {
@@ -294,6 +300,7 @@ public class MessageFragment extends BaseFragment implements Callback{
 				if(arg0.length() == 0)
 				{
 					Toast.makeText(getActivity(), "没有最新订单", Toast.LENGTH_SHORT).show();						
+					return;
 				}else{
 					Toast.makeText(getActivity(), "加载"+arg0.length()+""+"条新订单", Toast.LENGTH_SHORT).show();	
 				}
@@ -363,7 +370,14 @@ public class MessageFragment extends BaseFragment implements Callback{
 				    			//抢单
 								YSOrderModel updateorder = new YSOrderModel();
 								updateorder.setOrderStatues(YSOrderStatus.YSOrder_Select);
-								//updateorder.setOrderGoPhone(orderGo);
+								String orderGo = msharePreferenceUtil.loadStringSharedPreference("userName", "");
+								if(null != orderGo && !TextUtils.isEmpty(orderGo)){									
+									updateorder.setOrderGoPhone(orderGo);
+								}else{
+						    			progressDialog.dismiss();
+									Toast.makeText(getActivity(), "抢单失败,请刷新后再尝试", Toast.LENGTH_SHORT).show();
+									return;
+								}
 								updateorder.update(getActivity(), orderId, new UpdateListener() {
 					
 								    @Override

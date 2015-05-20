@@ -3,6 +3,7 @@ package com.cldxk.app.model;
 import java.io.Serializable;
 
 import android.R.bool;
+import android.util.Log;
 import cn.bmob.v3.BmobObject;
 
 public class YSOrderModel extends BmobObject implements Serializable{
@@ -39,6 +40,7 @@ public class YSOrderModel extends BmobObject implements Serializable{
 	//fastjson无法解析父类的方法
 	
 	private String orderYuYueMsg;
+	
 	
 	//设置数据库表名
 	public YSOrderModel(){
@@ -117,8 +119,5 @@ public class YSOrderModel extends BmobObject implements Serializable{
 		this.orderGoPhone = orderGoPhone;
 	}
 
-
 	
-	
-
 }

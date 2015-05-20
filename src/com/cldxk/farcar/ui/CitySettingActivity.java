@@ -105,6 +105,7 @@ public class CitySettingActivity extends EBaseActivity implements OnClickListene
 		title_tx = (TextView) actionBarlv.findViewById(R.id.actionbar_title);
 		back_btn.setOnClickListener(this);
 		title_tx.setText("拼车目的城市");
+		back_btn.setImageResource(R.drawable.city_back_btn);
 		
 		city_listview = this.findListViewById(R.id.citysetting_lv);
 		

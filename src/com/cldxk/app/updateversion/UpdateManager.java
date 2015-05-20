@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cldxk.app.EApplication;
+import com.cldxk.app.config.CldxkConfig;
 import com.cldxk.farcar.R;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -136,10 +137,12 @@ public class UpdateManager
 		// 获取当前软件版本
 		final int versionCode = getVersionCode(mContext);
 		
+		Log.i("tjc", versionCode+"");
+		
 		HttpUtils mHttpClient = EApplication.gHttpClient;
 		if(null != mHttpClient){
 			
-			mHttpClient.send(HttpMethod.GET, "http://www.cldxk.com/wemall/api/update.json", new RequestCallBack<String>() {
+			mHttpClient.send(HttpMethod.GET, CldxkConfig.API_UPLOAD_VERSON, new RequestCallBack<String>() {
 
 				@Override
 				public void onFailure(HttpException arg0, String arg1) {
@@ -166,7 +169,7 @@ public class UpdateManager
 							mHashMap.put("version", version+"");
 							mHashMap.put("name", name);
 							mHashMap.put("url", urlname);
-							//Log.i("tjc", "-->"+mHashMap.get("version")+""+"name="+mHashMap.get("name")+"url="+mHashMap.get("url"));
+							Log.i("tjc", "-->"+mHashMap.get("version")+""+"name="+mHashMap.get("name")+"url="+mHashMap.get("url"));
 							//发送handler更新数据
 							if(version > versionCode)
 							{
@@ -197,7 +200,7 @@ public class UpdateManager
 		try
 		{
 			// 获取软件版本号，对应AndroidManifest.xml下android:versionCode
-			versionCode = context.getPackageManager().getPackageInfo("com.cldxk.farcar.user", 0).versionCode;
+			versionCode = context.getPackageManager().getPackageInfo("com.cldxk.farcar", 0).versionCode;
 		} catch (NameNotFoundException e)
 		{
 			e.printStackTrace();

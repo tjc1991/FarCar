@@ -16,7 +16,7 @@
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="70.0dip"
-            android:background="@drawable/na_bg"
+            android:background="@drawable/wemall_background_back"
             android:gravity="center_vertical"
             android:paddingLeft="4.0dip"
             android:paddingRight="0dp" >
@@ -31,7 +31,7 @@
                 android:paddingLeft="0dip"
                 android:paddingRight="0dip"
                 android:scaleType="center"
-                android:src="@drawable/nav_btn_back_nor" />
+                android:src="@drawable/wemall_back_btn" />
 
             <TextView
                 android:id="@+id/title_text_gpl"
@@ -63,7 +63,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:textSize="@dimen/city_splarge"
-	        android:text="@string/wemall_downloading"/>
+	        android:text="@string/ystaxi_gpl"/>
 	    
 	</ScrollView>
 

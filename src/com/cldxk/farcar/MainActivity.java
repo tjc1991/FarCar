@@ -107,6 +107,7 @@ OnPageChangeListener, OnCheckedChangeListener, OrderMsgInrerface, NetReceiver.Ne
 		//城市选择事件
 		city_choice_btn.setOnClickListener(this);
         refresh_btn.setOnClickListener(this);
+        
 	}
 
 	/**
@@ -297,7 +298,7 @@ OnPageChangeListener, OnCheckedChangeListener, OrderMsgInrerface, NetReceiver.Ne
 					messagefragment.getNewmsgData();;
 				}
 				break;
-				
+								
 				default:
 					break;
 			

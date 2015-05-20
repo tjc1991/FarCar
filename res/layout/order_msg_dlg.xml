@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="乘车人数:5人"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="italic" />

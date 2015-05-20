@@ -136,12 +136,17 @@ public class OrderMsgShowActivity extends EBaseActivity implements OnClickListen
 
 			//设置订单预定时间
 			if(ysorder.getOrderType() == YSOrderType.Others){
+				
+				real_prepare_img.setImageResource(R.drawable.order_fragment_type_preorder);
 				time_tv.setText("预约时间: "+ysorder.getOrderYuYueMsg());
+				mesg = "预约,  "+"快来抢单,"+ysorder.getOrderYuYueMsg()+"从"+ysorder.getCityFrom()+"出发去往"
+						+ysorder.getCityDest()+""+"方向";
+			}else{
+				real_prepare_img.setImageResource(R.drawable.order_fragment_type_instant);
+				mesg = "实时,  "+"快来抢单,从"+ysorder.getCityFrom()+"出发去往"
+						+ysorder.getCityDest()+""+"方向";
 			}
-			
-			mesg = "快来抢单,从"+ysorder.getCityFrom()+"出发去往"
-					+ysorder.getCityDest()+""+"方向";
-			
+									
 			PlayMyOrder(mesg);
 			
 			new Thread(new Runnable() {
@@ -263,6 +268,7 @@ public class OrderMsgShowActivity extends EBaseActivity implements OnClickListen
 				    public void onSuccess() {
 				        // TODO Auto-generated method stub
 				    		progressDialog.dismiss();
+				    						    		
 				    		handler.sendEmptyMessage(MSG_SUCCESS);			    		
 				    }
 	

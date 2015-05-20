@@ -171,6 +171,43 @@
                     android:textColor="@color/green_56af43"
                     android:visibility="gone" />
             </RelativeLayout>
+            
+            <include layout="@layout/wemall_line_horizontal" />                   
+             <RelativeLayout
+                android:id="@+id/wemall_user_center_bankcar"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="@drawable/wemall_white_to_gray"
+                android:clickable="true" >
+
+                <View
+                    android:id="@+id/wemall_user_center_bankcarimg"
+                    android:layout_width="@dimen/wemall_user_center_icon_width"
+                    android:layout_height="@dimen/wemall_user_center_icon_height"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dip"
+                    android:background="@drawable/ic_security_info_big_exclusive" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="25.0dip"
+                    android:layout_toRightOf="@id/wemall_user_center_bankcarimg"
+                    android:text="@string/wemall_usercenterbankcar"
+                    android:textColor="@color/black_444444"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/wemall_bankcar_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="22.0dip"
+                    android:textColor="@color/green_56af43"
+                    android:visibility="gone" />
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout

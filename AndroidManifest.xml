@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cldxk.farcar"
-    android:versionCode="1"
+    android:versionCode="3"
     android:versionName="1.0" >
 
     <uses-sdk
@@ -22,6 +22,12 @@
 	<uses-permission android:name="android.permission.READ_PHONE_STATE"/> 
 	<!--读取联系人权限,上传联系人需要用到此权限 -->
 	<uses-permission android:name="android.permission.READ_CONTACTS"/>
+	<uses-permission android:name="android.permission.CALL_PHONE"/>
+	
+	
+	<!-- 发短信功能 -->
+	<uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
+	<uses-permission android:name="android.permission.READ_SMS"></uses-permission>
 	
 	<!-- 短信验证功能 -->
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -62,6 +68,16 @@
             </intent-filter>
         </activity>
         
+<!--         <activity
+            android:name="com.cldxk.farcar.ui.SfzActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> -->
+        
         <activity android:name="com.cldxk.farcar.MainActivity"></activity>       
         <activity android:name="com.cldxk.app.splash.WelcomeActivity"></activity>        
         <activity android:name="com.cldxk.plug.user.GplActivity"></activity>
@@ -69,7 +85,13 @@
         <activity android:name="com.cldxk.plug.user.RecoveryPasswdActivity"></activity>
         <activity android:name="com.cldxk.plug.user.RegistActivity"></activity>
         <activity android:name="com.cldxk.farcar.ui.OrderMsgShowActivity"></activity>                  
-        <activity android:name="com.cldxk.farcar.ui.AboutActivity"></activity>  
+        <activity android:name="com.cldxk.farcar.ui.AboutActivity"></activity> 
+        <activity android:name="com.cldxk.farcar.ui.SfzActivity"></activity>
+        <activity android:name="com.cldxk.farcar.ui.JszActivity"></activity>  
+        <activity android:name="com.cldxk.farcar.ui.XczActivity"></activity> 
+        <activity android:name="com.cldxk.farcar.ui.BxdActivity"></activity>  
+        <activity android:name="com.cldxk.farcar.ui.BankCarActivity"></activity>
+        <activity android:name="com.cldxk.farcar.ui.FinishRegisterActivity"></activity>
         <activity android:name="com.cldxk.farcar.ui.ConnectActivity"></activity>  
         <activity android:name="com.cldxk.farcar.ui.UserOrderActivity"></activity>                    
         <activity android:name="com.cldxk.farcar.ui.UseHelpActivity"></activity>                       

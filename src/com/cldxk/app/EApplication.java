@@ -32,11 +32,14 @@ public class EApplication extends Application {
 	public static HttpUtils getHttpClient() {
 		return gHttpClient;
 	}
+	
+	private static Boolean carIsrun = false;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		
+		carIsrun = false;
 		this.gHttpClient = new HttpUtils();
 		this.msharePreferenceUtil = new SharePreferenceUtil(getApplicationContext());
 		this.mdb = DbUtils.create(this);

@@ -1,8 +1,13 @@
 package com.cldxk.plug.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,12 +27,21 @@ import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RecoveryPage;
 import cn.smssdk.gui.RegisterPage;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.cldxk.app.base.EBaseActivity;
+import com.cldxk.app.config.CldxkConfig;
 import com.cldxk.app.customview.CustomProgressDialog;
 import com.cldxk.app.model.YSUser;
 import com.cldxk.app.utils.Utils;
 import com.cldxk.farcar.MainActivity;
 import com.cldxk.farcar.R;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
 public class LoginActivity extends EBaseActivity implements OnClickListener{
 	
@@ -134,18 +148,30 @@ public class LoginActivity extends EBaseActivity implements OnClickListener{
 			else {
 				regist.setClickable(false);
 				login.setClickable(false);
-				this.getaccountinfo();
+								
+				//检测用户状态
+				if(checkOk()==true){					
+					//获取用户信息
+					this.getaccountinfo();
+				}else{
+					
+					//查询用户审核状态
+					checkUserStatus();
+				}
+				
 			}
 			break;
+						
 		default:
 			break;
 		}
 	}
 
 	public void getaccountinfo() {
-		
+			
 		final YSUser user = new YSUser();
 		user.setUsername(account.getText().toString());
+//		user.setPassword(Utils.MD5(passwd.getText().toString()));
 		user.setPassword(Utils.MD5(passwd.getText().toString()));
 		user.login(getApplicationContext(), new SaveListener() {
 			
@@ -157,17 +183,23 @@ public class LoginActivity extends EBaseActivity implements OnClickListener{
 				//保存用户信息
 				msharePreferenceUtil.saveSharedPreferences("userName", account.getText().toString());
 				
+				//保存新密码
+				msharePreferenceUtil.saveSharedPreferences("userpwd",passwd.getText().toString());
+				
+				//  保存用户状态
+				msharePreferenceUtil.saveSharedPreferences("userFinish", "finish");
+								
 				regist.setClickable(true);
 				login.setClickable(true);
+				
 				//获取用户信息
 				getNewuserNick();
+								
+				//切换到主界面
+				Intent it = new Intent(LoginActivity.this, MainActivity.class);
+				startActivity(it);
 				
-				
-//				//切换到主界面
-//				Intent it = new Intent(LoginActivity.this, MainActivity.class);
-//				startActivity(it);
-//				
-//				finish();
+				finish();
 				
 			}
 			
@@ -249,6 +281,10 @@ public class LoginActivity extends EBaseActivity implements OnClickListener{
 						    	   	//保存用户Id
 						    	   	msharePreferenceUtil.saveSharedPreferences("userobjId", object.get(0).getObjectId()+"");
 						    	   	
+						    	   	//保存用户登录成功状态
+						    	   	msharePreferenceUtil.saveSharedPreferences("userFinish", "finish");
+						    	   	
+						    	   	
 						    	   	//Log.i("tjc", "-->id="+object.get(0).getObjectId());
 									//切换到主界面
 									Intent it = new Intent(LoginActivity.this, MainActivity.class);
@@ -278,6 +314,132 @@ public class LoginActivity extends EBaseActivity implements OnClickListener{
 				finish();
 			}
 		}
+		
+	}
+	
+	private Boolean checkOk(){
+		
+		String msg = msharePreferenceUtil.loadStringSharedPreference("statusok", "");
+		if(null == msg){
+			return false;
+		}else if(msg.equals("已开通")){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	private void checkUserStatus(){
+		 
+		final ProgressDialog dialog = ProgressDialog.show(this, "用户认证状态", "正在查询中...");
+		dialog.setCancelable(false);
+		
+		//发送Http请求
+		
+		RequestParams params = new RequestParams();
+		//参数传递方式
+		List<NameValuePair> values = new ArrayList<NameValuePair>(); 
+		values.add(new BasicNameValuePair("account",account.getText().toString() ));
+		values.add(new BasicNameValuePair("passwd", passwd.getText().toString()));
+		
+		params.addBodyParameter(values);
+		
+		httpClient.send(HttpMethod.POST, CldxkConfig.API_LOGIN, params, new RequestCallBack<String>(){
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+				Toast.makeText(getApplicationContext(), "连接服务器异常", Toast.LENGTH_SHORT)
+				.show();
+				
+				regist.setClickable(true);
+				login.setClickable(true);
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+				
+				regist.setClickable(true);
+				login.setClickable(true);
+				
+				Log.i("tjc", "--->msg="+arg0.result);
+				
+				
+				JSONObject resultjson = JSON.parseObject(arg0.result);
+				int msgid = resultjson.getIntValue("code");
+				Log.i("tjc", "--->code="+msgid+"");
+				if(msgid == 200){
+					JSONArray jsonarray = JSON.parseArray(resultjson.getString("data"));
+					if(null != jsonarray){
+						
+						JSONObject jsonstatus = jsonarray.getJSONObject(0);
+						String msgst = jsonstatus.getString("userstatus");
+//						Log.i("tjc", jsonstatus.getString("userstatus"));
+						
+						if(msgst != null){
+						if(msgst.equals("已开通")){
+							
+							msharePreferenceUtil.saveSharedPreferences("statusok", "已开通");
+							Toast.makeText(getApplicationContext(), "已通过,可以直接登陆",
+									Toast.LENGTH_SHORT).show();
+							
+						}else{
+							Toast.makeText(getApplicationContext(), "请耐心等待审核...",
+									Toast.LENGTH_SHORT).show();
+						}
+					}else{
+						Toast.makeText(getApplicationContext(), "请耐心等待审核...",
+								Toast.LENGTH_SHORT).show();
+					}
+				}else{
+					Toast.makeText(getApplicationContext(), "请耐心等待审核...",
+							Toast.LENGTH_SHORT).show();
+				}
+				}else{
+					Toast.makeText(getApplicationContext(), "用户信息错误...",
+							Toast.LENGTH_SHORT).show();
+					
+				}
+				
+//				JSONArray jsonarray = JSON.parseArray(arg0.result);
+//				if(null != jsonarray){
+//					
+//					JSONObject jsonobj = jsonarray.getJSONObject(0);
+//					int msgid = jsonobj.getIntValue("code");
+//					Log.i("tjc", "--->code="+msgid+"");
+//					
+//					JSONArray dataarray = jsonarray.getJSONArray(1);
+//					JSONObject jsonstatus = dataarray.getJSONObject(0);
+//					String msgst = jsonstatus.getString("userstatus");
+//					Log.i("tjc", "--->msgst="+msgst+"");
+//					
+//					if(msgst != null){
+//						if(msgst.equals("已开通")){
+//							
+//							msharePreferenceUtil.saveSharedPreferences("statusok", "已开通");
+//							Toast.makeText(getApplicationContext(), "已通过,可以直接登陆",
+//									Toast.LENGTH_SHORT).show();
+//							
+//						}else{
+//							Toast.makeText(getApplicationContext(), "请耐心等待审核...",
+//									Toast.LENGTH_SHORT).show();
+//						}
+//					}
+//				}else{
+//					Toast.makeText(getApplicationContext(), "请耐心等待审核...",
+//							Toast.LENGTH_SHORT).show();
+//				}
+//				
+////				Toast.makeText(getApplicationContext(), "完成认证",
+////						Toast.LENGTH_SHORT).show();
+//				
+//				//finish();
+			}
+							
+		});
 		
 	}
 

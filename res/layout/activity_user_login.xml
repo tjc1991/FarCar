@@ -160,6 +160,19 @@
             android:text="@string/wemall_forgetpasswd"
             android:textColor="@color/gray"
             android:textSize="15.0sp" />
+        
+ <!--        <TextView
+                android:id="@+id/canuse_button"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="3dp"
+                android:background="@drawable/wemall_background_green"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="审验状态"
+                android:textColor="@color/white_ffffff"
+                android:textSize="16.0sp" /> -->
+        
     </LinearLayout>
 
 </ScrollView>

@@ -134,11 +134,12 @@
     <string name="wemall_usercenterclean">违章查询</string>
     <string name="wemall_usercenterlogout">注销账户</string>
     <string name="wemall_usercenterchangepasswd">修改密码</string>
+    <string name="wemall_usercenterbankcar">绑定银行卡</string>
     <string name="wemall_usercentercollect">收藏中心</string>
     <string name="wemall_regist_name">用&#160;&#160;户&#160;&#160;名</string>
-    <string name="wemall_car_name">身&#160;&#160;份&#160;&#160;证</string>    
+    <string name="wemall_car_name">车&#160;&#160;牌&#160;&#160;号</string>    
     <string name="wemall_regist_name_hint">请输入真实姓名</string>
-    <string name="wemall_car_name_hint">请输入身份证号</string>
+    <string name="wemall_car_name_hint">请输入真实的车牌号</string>
     
     <string name="wemall_regist_phone">手&#160;&#160;机&#160;&#160;号</string>
     <string name="wemall_regist_phone_hint">请输入手机号</string>
@@ -164,6 +165,7 @@
     <string name="wemall_neterrtip">网络好像不通，请稍后再试</string>
     <string name="wemall_versiontop">当前版本为最新版，请放心使用</string>
     <string name="wemall_downloading">正在下载升级包，下载完毕将会自动安装，请稍侯......</string>   
+    <string name="ystaxi_gpl">使用程序需要严格遵守相关法律法规,不可以用于其它不正当的活动</string>   
 
     <!-- 对话框 -->
     <string name="prompt">提示</string>

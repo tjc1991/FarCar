@@ -13,6 +13,7 @@ import com.cldxk.app.config.YSUserType;
 import com.cldxk.app.model.YSUser;
 import com.cldxk.app.utils.Utils;
 import com.cldxk.farcar.R;
+import com.cldxk.farcar.ui.SfzActivity;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -101,14 +102,15 @@ public class RegistActivity extends EBaseActivity {
 	public void regist() {
 		
 		final String usertelephone = wemall_phonenumber.getText().toString();
-		String userpwd = Utils.MD5(wemall_register_password.getText().toString());
+		//final String userpwd = Utils.MD5(wemall_register_password.getText().toString());
+		final String userpwd = wemall_register_password.getText().toString();
 		final String username = name.getText().toString();
 		final String usercard = peoplecard.getText().toString();
 		
 		YSUser ysuser = new YSUser();
 		ysuser.setUsername(usertelephone);
 		ysuser.setUserNike(username);
-		ysuser.setPassword(userpwd);
+		ysuser.setPassword(Utils.MD5(userpwd));
 		ysuser.setUserCar(usercard);
 		ysuser.setUserPower(YSUserType.User_Power_normal);
 		ysuser.setUserType(YSUserType.User_Sj);
@@ -121,12 +123,22 @@ public class RegistActivity extends EBaseActivity {
 				
 				//保存信息
 				//保存信息
+				//手机号
 				msharePreferenceUtil.saveSharedPreferences("userPhone", usertelephone);
+				//姓名
 				msharePreferenceUtil.saveSharedPreferences("userName", username);
+				//银行卡号
 				msharePreferenceUtil.saveSharedPreferences("userCar", usercard);
 				
+				msharePreferenceUtil.saveSharedPreferences("userpwd", userpwd);
+				
+				
 				Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
+				//finish();
+				
+				startActivity(new Intent(RegistActivity.this, SfzActivity.class));
 				finish();
+				
 			}
 			
 			@Override

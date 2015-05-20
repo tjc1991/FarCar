@@ -1,16 +1,38 @@
 package com.cldxk.plug.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.UpdateListener;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.cldxk.app.base.EBaseActivity;
+import com.cldxk.app.config.CldxkConfig;
+import com.cldxk.app.model.YSUser;
+import com.cldxk.app.utils.Utils;
 import com.cldxk.farcar.MainActivity;
 import com.cldxk.farcar.R;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -26,7 +48,7 @@ public class RecoveryPasswdActivity extends EBaseActivity {
 	private TextView wemall_recoverypasswd_button;
 	private Handler handler = null;
 	private int RecoveryPasswdtstate = -1;
-	private String phone;
+	private String phone = "";
 
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -39,7 +61,7 @@ public class RecoveryPasswdActivity extends EBaseActivity {
 
 		wemall_recoverypasswd_new = (EditText) findViewById(R.id.wemall_recoverypasswd_new);
 		wemall_recoverypasswd_new_re = (EditText) findViewById(R.id.wemall_recoverypasswd_new_re);
-		wemall_recoverypasswd_loadingBar = (ProgressBar) findViewById(R.id.wemall_recoverypasswd_loadingBar);
+		//wemall_recoverypasswd_loadingBar = (ProgressBar) findViewById(R.id.wemall_recoverypasswd_loadingBar);
 		wemall_recoverypasswd_button = (TextView) findViewById(R.id.wemall_recoverypasswd_button);
 		wemall_recoverypasswd_button.setOnClickListener(new OnClickListener() {
 
@@ -64,7 +86,7 @@ public class RecoveryPasswdActivity extends EBaseActivity {
 					.show();
 		} else if (wemall_recoverypasswd_new.getText().toString()
 				.equals(wemall_recoverypasswd_new_re.getText().toString())) {
-			wemall_recoverypasswd_loadingBar.setVisibility(View.VISIBLE);
+			//wemall_recoverypasswd_loadingBar.setVisibility(View.VISIBLE);
 			reapasswd();
 		}
 	}
@@ -72,42 +94,98 @@ public class RecoveryPasswdActivity extends EBaseActivity {
 	@SuppressLint("HandlerLeak")
 	public void reapasswd() {
 
-//		// 开一条子线程加载网络数据
-//		Runnable runnable = new Runnable() {
-//			public void run() {
-//
-//				// xmlwebData解析网络中xml中的数据
-//				RecoveryPasswdtstate = NetUserRecovery
-//						.getData("phone="
-//								+ phone
-//								+ "&new="
-//								+ wemall_recoverypasswd_new.getText()
-//										.toString());
-//				// 发送消息，并把persons结合对象传递过去
-//				handler.sendEmptyMessage(0x11199);
-//			}
-//		};
-//
-//		try {
-//			// 开启线程
-//			new Thread(runnable).start();
-//			// handler与线程之间的通信及数据处理
-//			handler = new Handler() {
-//				public void handleMessage(Message msg) {
-//					if (msg.what == 0x11199) {
-//						// 下一步给ListView绑定数据
-//						wemall_recoverypasswd_loadingBar
-//								.setVisibility(View.GONE);
-//						result();
-//					}
-//				}
-//			};
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
+		//先更新服务器一
+		String userid = msharePreferenceUtil.loadStringSharedPreference("userobjId", "");
+		if(userid == null){
+			return;
+		}
+		
+		final ProgressDialog dialog = ProgressDialog.show(this, "用户认证状态", "正在查询中...");
+		dialog.setCancelable(false);
+		
+		YSUser newUser = new YSUser();
+		newUser.setPassword(Utils.MD5(wemall_recoverypasswd_new.getText().toString()));
+		newUser.update(this,userid,new UpdateListener() {
+		    @Override
+		    public void onSuccess() {
+		        // TODO Auto-generated method stub
+		    		//在更新服务器二
+		    	dialog.dismiss();
+		    		updateYsSystem();
+		    	
+		    }
+		    @Override
+		    public void onFailure(int code, String msg) {
+		        // TODO Auto-generated method stub
+		     	dialog.dismiss();
+		        Toast.makeText(getApplicationContext(),"更新用户信息失败", Toast.LENGTH_SHORT).show();
+		    }
+		});		
+				
 	}
 
+	public void updateYsSystem(){
+		
+		final ProgressDialog dialog = ProgressDialog.show(this, "用户认证状态", "正在查询中...");
+		dialog.setCancelable(false);
+		
+		//发送Http请求
+		
+		RequestParams params = new RequestParams();
+		//参数传递方式
+		List<NameValuePair> values = new ArrayList<NameValuePair>(); 
+		values.add(new BasicNameValuePair("phone",phone));
+		values.add(new BasicNameValuePair("new", wemall_recoverypasswd_new.getText().toString()));
+		
+		params.addBodyParameter(values);
+		
+		httpClient.send(HttpMethod.POST, CldxkConfig.API_REPEAT_PWD, params, new RequestCallBack<String>(){
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+				Toast.makeText(getApplicationContext(), "连接服务器异常", Toast.LENGTH_SHORT)
+				.show();
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+				
+				Log.i("tjc", "--->msg="+arg0.result);
+								
+				JSONObject resultjson = JSON.parseObject(arg0.result);
+				int msgid = resultjson.getIntValue("code");
+				Log.i("tjc", "--->code="+msgid+"");
+				if(msgid == 200){
+					
+					Toast.makeText(getApplicationContext(), "更新密码成功", Toast.LENGTH_SHORT)
+					.show();
+					
+					//保存新密码
+					msharePreferenceUtil.saveSharedPreferences("userpwd", wemall_recoverypasswd_new.getText().toString());
+					
+					//清楚登录状态
+					msharePreferenceUtil.saveSharedPreferences("userFinish", "");
+					
+					//跳转Activity
+					startActivity(new Intent(RecoveryPasswdActivity.this, LoginActivity.class));
+															
+					finish();
+				}
+
+			}
+							
+		});
+		
+		
+	}
+	
+	
+	
+	
 	public void result() {
 
 		if (RecoveryPasswdtstate == 0) {

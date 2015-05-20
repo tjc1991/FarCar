@@ -16,6 +16,7 @@
         android:clickable="true"
         android:fadingEdge="none"
         android:divider="@drawable/listview_line"
+        android:dividerHeight="3dp"
         android:overScrollMode="never">
              
     </com.cldxk.app.listview.XListView>

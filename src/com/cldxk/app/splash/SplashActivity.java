@@ -29,16 +29,37 @@ public class SplashActivity extends EBaseActivity {
 	private Handler mMainHandler = new Handler() {
 
 		public void handleMessage(Message msg) {
+			
+			String userfinish = msharePreferenceUtil.loadStringSharedPreference("userFinish", "");
 			String userphone = msharePreferenceUtil.loadStringSharedPreference("userName", "");
-			if(null != userphone && !TextUtils.isEmpty(userphone))
+			
+			if(null != userfinish && !TextUtils.isEmpty(userfinish) && userfinish.equals("finish"))
 			{
 				Intent it = new Intent(SplashActivity.this, MainActivity.class);
 				startActivity(it);
-			}else{
+			}else if(null != userphone && !TextUtils.isEmpty(userphone))
+			{
+				Intent it = new Intent(SplashActivity.this, LoginActivity.class);
+				startActivity(it);
+			}	
+			else{
 				Intent it = new Intent(SplashActivity.this, WelcomeActivity.class);
 				startActivity(it);	
 			}
 			finish();
+			
+		
+			
+//			String userphone = msharePreferenceUtil.loadStringSharedPreference("userName", "");
+//			if(null != userphone && !TextUtils.isEmpty(userphone))
+//			{
+//				Intent it = new Intent(SplashActivity.this, MainActivity.class);
+//				startActivity(it);
+//			}else{
+//				Intent it = new Intent(SplashActivity.this, WelcomeActivity.class);
+//				startActivity(it);	
+//			}
+//			finish();
 		}
 	};
 
