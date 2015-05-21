@@ -43,7 +43,7 @@ public class RegistActivity extends EBaseActivity {
 	private TextView wemall_phonenumber,
 			wemall_register_button, wemall_agree_details;
 	private EditText wemall_register_password,
-			wemall_register_confirm_password, name, peoplecard;
+			wemall_register_confirm_password, name, peoplecard,car_xinhao;
 	private CheckBox agree;
 	private Handler handler = null;
 	private ProgressBar registloadingBar;
@@ -58,6 +58,9 @@ public class RegistActivity extends EBaseActivity {
 		wemall_register_password = (EditText) findViewById(R.id.wemall_register_password);
 		name = (EditText) findViewById(R.id.wemall_register_name);
 		peoplecard = (EditText) findViewById(R.id.wemall_car_name);
+		
+		car_xinhao = (EditText) findViewById(R.id.wemall_car_xinhao);
+		
 		wemall_register_confirm_password = (EditText) findViewById(R.id.wemall_register_confirm_password);
 		wemall_register_button = (TextView) findViewById(R.id.wemall_register_button);
 		wemall_phonenumber.setText(bundle.getString("phone"));
@@ -106,6 +109,7 @@ public class RegistActivity extends EBaseActivity {
 		final String userpwd = wemall_register_password.getText().toString();
 		final String username = name.getText().toString();
 		final String usercard = peoplecard.getText().toString();
+		final String usercarxinghao = car_xinhao.getText().toString();
 		
 		YSUser ysuser = new YSUser();
 		ysuser.setUsername(usertelephone);
@@ -131,6 +135,9 @@ public class RegistActivity extends EBaseActivity {
 				msharePreferenceUtil.saveSharedPreferences("userCar", usercard);
 				
 				msharePreferenceUtil.saveSharedPreferences("userpwd", userpwd);
+				
+				//保存车型号
+				msharePreferenceUtil.saveSharedPreferences("carxh", usercarxinghao);
 				
 				
 				Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
@@ -207,6 +214,9 @@ public class RegistActivity extends EBaseActivity {
 
 		}else if (peoplecard.getText().toString().trim().length() == 0) {
 			Toast.makeText(this, "身份证为空,请填写", Toast.LENGTH_SHORT).show();
+
+		}else if (car_xinhao.getText().toString().trim().length() == 0) {
+			Toast.makeText(this, "车型号为空,请填写", Toast.LENGTH_SHORT).show();
 
 		}else {
 			registloadingBar.setVisibility(View.VISIBLE);

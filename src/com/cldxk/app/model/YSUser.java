@@ -1,9 +1,16 @@
 package com.cldxk.app.model;
 
+import java.io.Serializable;
+
 import cn.bmob.v3.BmobUser;
 
-public class YSUser extends BmobUser {
+public class YSUser extends BmobUser implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	//用户姓名
 	private String userNick;
 	

@@ -28,6 +28,7 @@ import com.cldxk.app.utils.Utils;
 import com.cldxk.farcar.R;
 import com.cldxk.farcar.ui.AboutActivity;
 import com.cldxk.farcar.ui.BankCarActivity;
+import com.cldxk.farcar.ui.UserAccountMoney;
 import com.cldxk.farcar.ui.UserOrderActivity;
 import com.cldxk.plug.user.LoginActivity;
 import com.cldxk.plug.user.RecoveryPasswdActivity;
@@ -67,7 +68,7 @@ public class UserCenterFragment extends BaseFragment implements OnClickListener{
 	private View view = null;
 	private ViewGroup user_logout,
 	usercenter_about, user_center_myorder, user_center_claer,
-	user_wodeqianbao, wemall_user_center_changepasswd, topuserinfo,user_center_bank;
+	user_wodeqianbao, wemall_user_center_changepasswd, topuserinfo,user_center_bank,user_tixian;
 	private HashMap<String, Object> accountinfo;
 	private TextView usercenter_username, usercenter_address;
 	private Handler handler = null;
@@ -114,6 +115,9 @@ public class UserCenterFragment extends BaseFragment implements OnClickListener{
 		
 		user_center_bank = (ViewGroup) view.findViewById(R.id.wemall_user_center_bankcar);
 		user_center_bank.setOnClickListener(this);
+		
+		user_tixian = (ViewGroup) view.findViewById(R.id.user_center_tixian);
+		user_tixian.setOnClickListener(this);
 		
 		user_logout = (ViewGroup) view.findViewById(R.id.user_logout);
 		user_logout.setOnClickListener(this);
@@ -189,6 +193,11 @@ public class UserCenterFragment extends BaseFragment implements OnClickListener{
 			selectBankcar();
 			break;	
 			
+		case R.id.wemall_user_center_tixian:
+			//用户资金和体现
+			gotoMyDetailMoney();
+			break;	
+						
 		case R.id.user_center_user_icon:
 			ChangeUserIcon();
 			break;
@@ -510,6 +519,14 @@ public class UserCenterFragment extends BaseFragment implements OnClickListener{
 		
 		startActivity(new Intent(getActivity(), BankCarActivity.class));
 		
+	}
+	
+	/*
+	 * 提现
+	 * */
+	public void gotoMyDetailMoney(){
+		
+		startActivity(new Intent(getActivity(), UserAccountMoney.class));
 	}
 	
 

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_e0e0e0"
+    android:background="@color/white"
     android:orientation="vertical" >
     
     <include layout="@layout/activity_actionbar" /> 
@@ -12,11 +12,13 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
         android:drawSelectorOnTop="false"
         android:clickable="true"
         android:fadingEdge="none"
-        android:divider="@drawable/listview_line"
-        android:dividerHeight="3dp"
+        android:divider="@color/white"
+        android:dividerHeight="7dp"
         android:overScrollMode="never">
              
     </com.cldxk.app.listview.XListView>

@@ -3,7 +3,8 @@
     android:baselineAligned="false"
     android:layout_width="match_parent"
     android:orientation="horizontal"
-    android:layout_height="110dp" >
+    android:background="@drawable/dest_prompt_bg"
+    android:layout_height="155dp" >
     
     <LinearLayout 
         android:layout_width="50dp"
@@ -81,9 +82,24 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:ellipsize="end"
-			        android:text=""
+			        android:text="到哪去"
 			        android:textColor="#ff444444"
 			        android:textSize="22.0sp" />
+               
+               <TextView
+			        android:id="@+id/ys_order_money"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_marginBottom="10dp"
+			        android:layout_marginTop="5dp"
+			        android:ellipsize="end"
+			        android:text="预约路费:"
+			        android:textColor="#16788E"
+			        android:textSize="18.0sp" />
+               
+               
+               
+               
                
 <!--               <View
 			        android:layout_width="fill_parent"

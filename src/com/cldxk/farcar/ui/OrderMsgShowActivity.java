@@ -133,6 +133,8 @@ public class OrderMsgShowActivity extends EBaseActivity implements OnClickListen
 			
 			from_tv.setText(ysorder.getCityFrom());
 			go_tv.setText(ysorder.getCityDest());
+			
+			cr_num_tv.setText("预约车费:"+ysorder.getOrderPrice()+""+"元");
 
 			//设置订单预定时间
 			if(ysorder.getOrderType() == YSOrderType.Others){
@@ -262,6 +264,7 @@ public class OrderMsgShowActivity extends EBaseActivity implements OnClickListen
 				YSOrderModel updateorder = new YSOrderModel();
 				updateorder.setOrderStatues(YSOrderStatus.YSOrder_Select);
 				updateorder.setOrderGoPhone(orderGo);
+				updateorder.setOrderPrice(ysorder.getOrderPrice());
 				updateorder.update(this, orderId, new UpdateListener() {
 	
 				    @Override

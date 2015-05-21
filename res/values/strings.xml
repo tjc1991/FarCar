@@ -129,15 +129,17 @@
     <string name="wemall_login_account">帐号</string>
     <string name="wemall_login_account_hint">请输入手机号</string>
     <string name="wemall_version">1.0</string>   
-    <string name="wemall_ordercenter">订单中心</string>
-    <string name="wemall_usercenterpurse">我的钱包</string>
+    <string name="wemall_ordercenter">我的订单</string>
+    <string name="wemall_usercenterpurse">我的资金</string>
     <string name="wemall_usercenterclean">违章查询</string>
     <string name="wemall_usercenterlogout">注销账户</string>
     <string name="wemall_usercenterchangepasswd">修改密码</string>
     <string name="wemall_usercenterbankcar">绑定银行卡</string>
     <string name="wemall_usercentercollect">收藏中心</string>
     <string name="wemall_regist_name">用&#160;&#160;户&#160;&#160;名</string>
-    <string name="wemall_car_name">车&#160;&#160;牌&#160;&#160;号</string>    
+    <string name="wemall_car_name">车&#160;&#160;牌&#160;&#160;号</string>  
+    <string name="wemall_car_chexing">车&#160;&#160;型&#160;&#160;</string>
+    <string name="wemall_car_name_chexing">如:&#160;&#160;上&#160;&#160;海&#160;&#160;大&#160;&#160;众&#160;&#160;</string>    
     <string name="wemall_regist_name_hint">请输入真实姓名</string>
     <string name="wemall_car_name_hint">请输入真实的车牌号</string>
     

@@ -71,7 +71,8 @@ public class FromeAndGoAdapter extends BaseAdapter implements OnClickListener{
 			  holder.fromTv = ((TextView) convertView.findViewById(R.id.carmsg_from)) ;
 			  holder.goTv = ((TextView) convertView.findViewById(R.id.carmsg_go));
 			  holder.statusTv = ((TextView) convertView.findViewById(R.id.carmsg_status));
-			  holder.phoneImg = ((ImageView) convertView.findViewById(R.id.carmsg_phone));	  
+			  holder.phoneImg = ((ImageView) convertView.findViewById(R.id.carmsg_phone));
+			  holder.priceTv = (TextView) convertView.findViewById(R.id.ys_order_money);
 			  //设置标记
 			  convertView.setTag(holder);
         }else{
@@ -86,6 +87,8 @@ public class FromeAndGoAdapter extends BaseAdapter implements OnClickListener{
         
         holder.goTv.setText(orderitem.getCityDest());
         holder.fromTv.setText(orderitem.getCityFrom()); 
+        holder.priceTv.setText("预约路费:"+orderitem.getOrderPrice()+"");
+        
         if(orderitem.getOrderStatues() == YSOrderStatus.YSOrder_Select){
         		holder.statusTv.setText("已抢单");
         }else if(orderitem.getOrderStatues() == YSOrderStatus.YSOrder_Pay){
@@ -110,6 +113,7 @@ public class FromeAndGoAdapter extends BaseAdapter implements OnClickListener{
 		TextView goTv;
 		TextView statusTv;
 		ImageView phoneImg;
+		TextView  priceTv;
 	}
 	
 	   /**

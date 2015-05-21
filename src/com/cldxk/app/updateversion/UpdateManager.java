@@ -215,7 +215,7 @@ public class UpdateManager
 	{
 		// 构造对话框
 		AlertDialog.Builder builder = new Builder(mContext);
-		builder.setIcon(R.drawable.ys_icons);
+		builder.setIcon(R.drawable.ys_icon_baomis);
 		builder.setTitle(R.string.soft_update_title);
 		builder.setMessage(R.string.soft_update_info);
 		// 更新
@@ -249,7 +249,7 @@ public class UpdateManager
 	{
 		// 构造软件下载对话框
 		AlertDialog.Builder builder = new Builder(mContext);
-		builder.setIcon(R.drawable.ys_icons);
+		builder.setIcon(R.drawable.ys_icon_baomis);
 		builder.setTitle(R.string.soft_updating);
 		builder.setMessage("正在更新中....");
 		// 给下载对话框增加进度条

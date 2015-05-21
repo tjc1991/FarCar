@@ -200,7 +200,7 @@ public class MessageFragment extends BaseFragment implements Callback{
 				// TODO Auto-generated method stub
 				
 				//停止刷新
-				Toast.makeText(getActivity(), "加载"+arg0.length()+""+"条订单", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getActivity(), "加载"+arg0.length()+""+"条订单", Toast.LENGTH_SHORT).show();
 				//Log.i("tjc", arg0.toString());
 				
 				//刷新数据适配器
@@ -344,7 +344,7 @@ public class MessageFragment extends BaseFragment implements Callback{
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				dialog.dismiss();
-				YSOrderModel ysoder = listItems.get(index);
+				final YSOrderModel ysoder = listItems.get(index);
 				final String orderId = ysoder.getObjectId();
 				Log.i("tjc", orderId+"");
 				Log.i("tjcxx--->", ysoder.getOrderStatues()+"");
@@ -370,6 +370,8 @@ public class MessageFragment extends BaseFragment implements Callback{
 				    			//抢单
 								YSOrderModel updateorder = new YSOrderModel();
 								updateorder.setOrderStatues(YSOrderStatus.YSOrder_Select);
+								updateorder.setOrderPrice(ysoder.getOrderPrice());
+
 								String orderGo = msharePreferenceUtil.loadStringSharedPreference("userName", "");
 								if(null != orderGo && !TextUtils.isEmpty(orderGo)){									
 									updateorder.setOrderGoPhone(orderGo);

@@ -20,7 +20,7 @@
             <RelativeLayout
                 android:id="@+id/topuserinfo"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="95dp"
                 android:background="@drawable/wemall_white_to_gray"
                 android:clickable="true" >
 
@@ -63,6 +63,20 @@
                     android:text="@string/wemall_usercentername"
                     android:textColor="@color/black_444444"
                     android:textSize="18sp" />
+                
+                 <!-- <TextView
+                    android:id="@+id/user_center_mymoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_center_address"
+                    android:layout_alignLeft="@+id/user_center_username"
+                    android:text="我的收入:"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/gray_999999"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="16sp" /> -->
+                
+                
             </RelativeLayout>
 
             <include layout="@layout/wemall_line_horizontal" />
@@ -76,6 +90,37 @@
             android:orientation="vertical" >
 
             <include layout="@layout/wemall_line_horizontal" />
+            
+            <!--  -->
+           <RelativeLayout
+                android:id="@+id/user_center_tixian"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="@drawable/wemall_white_to_gray"
+                android:clickable="true" >
+
+                <View
+                    android:id="@+id/wemall_user_center_tixian"
+                    android:layout_width="33.0dip"
+                    android:layout_height="@dimen/wemall_user_center_icon_height"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/ic_category_shop_for_map" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="25.0dip"
+                    android:layout_toRightOf="@id/wemall_user_center_tixian"
+                    android:text="@string/wemall_usercenterpurse"
+                    android:textColor="@color/black_444444"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <include layout="@layout/wemall_line_horizontal" />  
+            
 
             <RelativeLayout
                 android:id="@+id/user_center_myorder"
