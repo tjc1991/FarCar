@@ -18,3 +18,32 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-dontwarn com.baidu.mapapi.utils.**
+-keep class com.baidu.mapapi.utils.** { *;}
+
+-dontwarn com.alibaba.fastjson.support.odps.udf.**
+-keep class com.alibaba.fastjson.support.odps.udf.** { *;}
+
+-dontwarn com.lidroid.xutils.**
+-keep class com.lidroid.xutils.** { *;}
+
+-dontwarn demo.**
+-keep class demo.** { *;}
+-dontwarn net.sourceforge.pinyin4j.**  
+-keep class net.sourceforge.pinyin4j.**{*;}
+-keep class net.sourceforge.pinyin4j.format.**{*;}
+-keep class net.sourceforge.pinyin4j.format.exception.**{*;}
+
+-dontwarn com.sina.weibo.sdk.auth.**
+-keep class com.sina.weibo.sdk.auth.** { *;}
+
+
+-dontwarn cn.smssdk.gui.**
+-keep class cn.smssdk.gui.** { *;}
+
+-dontwarn com.bmob.video.widget.**
+-keep class com.bmob.video.widget.** { *;}
+
+-dontwarn com.bmob.**
+-keep class com.bmob.** { *;}

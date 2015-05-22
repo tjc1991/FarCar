@@ -34,6 +34,7 @@ import com.cldxk.app.base.EBaseActivity;
 import com.cldxk.app.config.CldxkConfig;
 import com.cldxk.app.customview.CustomProgressDialog;
 import com.cldxk.app.model.YSUser;
+import com.cldxk.app.model.YSWage;
 import com.cldxk.app.utils.Utils;
 import com.cldxk.farcar.MainActivity;
 import com.cldxk.farcar.R;
@@ -193,7 +194,7 @@ public class LoginActivity extends EBaseActivity implements OnClickListener{
 				login.setClickable(true);
 				
 				//获取用户信息
-				getNewuserNick();
+				getNewuserNick();				
 								
 				//切换到主界面
 				Intent it = new Intent(LoginActivity.this, MainActivity.class);
@@ -213,7 +214,7 @@ public class LoginActivity extends EBaseActivity implements OnClickListener{
 		});
 
 	}
-
+	
 		public void HideKeyboard() {
 			try {
 				((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))

@@ -171,7 +171,7 @@ public class UpdateManager
 							mHashMap.put("url", urlname);
 							Log.i("tjc", "-->"+mHashMap.get("version")+""+"name="+mHashMap.get("name")+"url="+mHashMap.get("url"));
 							//发送handler更新数据
-							if(version > versionCode)
+							if(version != versionCode)
 							{
 								mHandler.sendEmptyMessage(START_UPDATA);
 							}else{

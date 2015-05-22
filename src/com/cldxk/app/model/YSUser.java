@@ -26,6 +26,9 @@ public class YSUser extends BmobUser implements Serializable{
 	//用户类型
 	private int userType;
 	
+	//用户工资
+	//private float userwage;
+	
 
 	public String getUserNike() {
 		return userNick;
@@ -66,6 +69,14 @@ public class YSUser extends BmobUser implements Serializable{
 	public void setUserType(int userType) {
 		this.userType = userType;
 	}
+
+//	public float getUserwage() {
+//		return userwage;
+//	}
+//
+//	public void setUserwage(float userwage) {
+//		this.userwage = userwage;
+//	}
 	
 	
 	

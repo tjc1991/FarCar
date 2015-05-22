@@ -193,7 +193,7 @@ public class UserCenterFragment extends BaseFragment implements OnClickListener{
 			selectBankcar();
 			break;	
 			
-		case R.id.wemall_user_center_tixian:
+		case R.id.user_center_tixian:
 			//用户资金和体现
 			gotoMyDetailMoney();
 			break;	

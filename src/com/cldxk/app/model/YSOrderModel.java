@@ -20,7 +20,7 @@ public class YSOrderModel extends BmobObject implements Serializable{
 	private String cityDest;
 	
 	//时间
-	private String fromTime;
+	//private String fromTime;
 	
 	//联系电话
 	private String telePhone;
@@ -63,13 +63,13 @@ public class YSOrderModel extends BmobObject implements Serializable{
 		this.cityDest = cityDest;
 	}
 
-	public String getFromTime() {
-		return fromTime;
-	}
-
-	public void setFromTime(String fromTime) {
-		this.fromTime = fromTime;
-	}
+//	public String getFromTime() {
+//		return fromTime;
+//	}
+//
+//	public void setFromTime(String fromTime) {
+//		this.fromTime = fromTime;
+//	}
 
 	public String getTelePhone() {
 		return telePhone;

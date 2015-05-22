@@ -11,7 +11,9 @@ import com.cldxk.app.base.EBaseActivity;
 import com.cldxk.app.config.CldxkConfig;
 import com.cldxk.app.config.YSUserType;
 import com.cldxk.app.model.YSUser;
+import com.cldxk.app.model.YSWage;
 import com.cldxk.app.utils.Utils;
+import com.cldxk.farcar.MainActivity;
 import com.cldxk.farcar.R;
 import com.cldxk.farcar.ui.SfzActivity;
 import com.lidroid.xutils.exception.HttpException;
@@ -143,8 +145,12 @@ public class RegistActivity extends EBaseActivity {
 				Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
 				//finish();
 				
-				startActivity(new Intent(RegistActivity.this, SfzActivity.class));
-				finish();
+				registerWage();
+				
+				//startActivity(new Intent(RegistActivity.this, SfzActivity.class));
+				
+				
+				//finish();
 				
 			}
 			
@@ -188,6 +194,36 @@ public class RegistActivity extends EBaseActivity {
 //			
 //		});
 	}	
+	
+	public void registerWage(){
+		
+		YSWage wage = new YSWage();
+		//注意：不能调用gameScore.setObjectId("")方法
+		wage.setUserid(msharePreferenceUtil.loadStringSharedPreference("userPhone", ""));
+		wage.setUserwage(0.0f);
+		wage.save(getApplicationContext(), new SaveListener() {
+
+		    @Override
+		    public void onSuccess() {
+		        // TODO Auto-generated method stub
+				//Toast.makeText(getApplicationContext(), "wage成功", Toast.LENGTH_SHORT).show();
+				
+				startActivity(new Intent(RegistActivity.this, SfzActivity.class));			
+				finish();
+
+		    }
+
+		    @Override
+		    public void onFailure(int code, String arg0) {
+		        // TODO Auto-generated method stub
+		        // 添加失败
+				Toast.makeText(getApplicationContext(), "wage失败", Toast.LENGTH_SHORT).show();
+
+		    }
+		});
+	} 
+	
+	
 	
 	@Override
 	public void onBackPressed() {

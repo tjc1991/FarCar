@@ -1,7 +1,7 @@
 package com.cldxk.app.customview;
 
 import com.cldxk.farcar.R;
-
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -169,6 +169,7 @@ public class CustomDialog extends Dialog {
 			return this;
 		}
 
+		@SuppressLint("WrongViewCast")
 		public CustomDialog create() {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
