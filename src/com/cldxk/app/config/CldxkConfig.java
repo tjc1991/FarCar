@@ -21,5 +21,8 @@ public class CldxkConfig {
 	
 	public static final String API_SELECT_BANKCCAR = APP_URL
 			+ "api/client.php" +"?tag=wemall_select_bankcar";
+	
+	public static final String API_CHECK_MSG = APP_URL
+			+ "api/client.php" +"?tag=wemall_check_usermsg";
 
 }

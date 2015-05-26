@@ -161,10 +161,11 @@ public class MessageFragment extends BaseFragment implements Callback{
 	 */
 	public void getDestMsgData(){
 		
+		//系统方式,便捷
 		listItems.clear();
 		
 		//查询服务器获取数据
-		BmobQuery query = new BmobQuery("ys_order");
+		BmobQuery<YSOrderModel> query = new BmobQuery<YSOrderModel>();
 		//按照时间降序
         query.order("-createdAt");
         
@@ -193,24 +194,32 @@ public class MessageFragment extends BaseFragment implements Callback{
 		}
         
       //执行查询，第一个参数为上下文，第二个参数为查找的回调
-        query.findObjects(getActivity(), new FindCallback() {
+        query.findObjects(getActivity(), new FindListener<YSOrderModel>() {
 			
 			@Override
-			public void onSuccess(JSONArray arg0) {
+			public void onSuccess(List<YSOrderModel> arg0) {
 				// TODO Auto-generated method stub
 				
 				//停止刷新
 				//Toast.makeText(getActivity(), "加载"+arg0.length()+""+"条订单", Toast.LENGTH_SHORT).show();
 				//Log.i("tjc", arg0.toString());
 				
-				//刷新数据适配器
-				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
-				for (YSOrderModel ysOrderModel : orders) {
-					listItems.add(ysOrderModel);
-//					String orderstr = "快来抢单,从"+ysOrderModel.getCityFrom()+"出发去往"
-//							+ysOrderModel.getCityDest()+""+"方向";
-//					Vorders.add(orderstr);
+				if(null == arg0){
+					return;
 				}
+				
+				//刷新数据适配器
+				for (YSOrderModel ysOrderModel : arg0) {
+					listItems.add(ysOrderModel);
+				}
+				
+//				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
+//				for (YSOrderModel ysOrderModel : orders) {
+//					listItems.add(ysOrderModel);
+////					String orderstr = "快来抢单,从"+ysOrderModel.getCityFrom()+"出发去往"
+////							+ysOrderModel.getCityDest()+""+"方向";
+////					Vorders.add(orderstr);
+//				}
 				
 				orderAdapter.set_datasource(listItems);
 				orderAdapter.notifyDataSetChanged();
@@ -225,7 +234,7 @@ public class MessageFragment extends BaseFragment implements Callback{
 			}
 			
 			@Override
-			public void onFailure(int arg0, String arg1) {
+			public void  onError(int code, String msg) {
 				// TODO Auto-generated method stub
 				
 				//停止刷新				
@@ -235,6 +244,81 @@ public class MessageFragment extends BaseFragment implements Callback{
 			}
 		});
 		
+		//自定义方式查询订单
+//		listItems.clear();
+//		
+//		//查询服务器获取数据
+//		BmobQuery query = new BmobQuery("ys_order");
+//		//按照时间降序
+//        query.order("-createdAt");
+//        
+//        //查询显示没有接单的数据
+//        query.addWhereLessThan("orderStatues", 1);
+//
+//        //添加查询约束条件
+//        try {
+//        	
+//        		if(null != db){
+//			List<CityMsgEntity> listitems = db.findAll(CityMsgEntity.class);
+//			if(listitems != null){
+//			if(listitems.size()>0){				
+//				ArrayList<String> listitem = new ArrayList<String>();
+//				for(int i =0 ;i<listitems.size();i++){
+//					CityMsgEntity cityentity = listitems.get(i);
+//					listitem.add(cityentity.getCity_choice_name());
+//				}
+//				query.addWhereContainedIn("cityDest", listitem);
+//			}}
+//        		}
+//			
+//		} catch (DbException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//        
+//      //执行查询，第一个参数为上下文，第二个参数为查找的回调
+//        query.findObjects(getActivity(), new FindCallback() {
+//			
+//			@Override
+//			public void onSuccess(JSONArray arg0) {
+//				// TODO Auto-generated method stub
+//				
+//				//停止刷新
+//				//Toast.makeText(getActivity(), "加载"+arg0.length()+""+"条订单", Toast.LENGTH_SHORT).show();
+//				//Log.i("tjc", arg0.toString());
+//				
+//				//刷新数据适配器
+//				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
+//				for (YSOrderModel ysOrderModel : orders) {
+//					listItems.add(ysOrderModel);
+////					String orderstr = "快来抢单,从"+ysOrderModel.getCityFrom()+"出发去往"
+////							+ysOrderModel.getCityDest()+""+"方向";
+////					Vorders.add(orderstr);
+//				}
+//				
+//				orderAdapter.set_datasource(listItems);
+//				orderAdapter.notifyDataSetChanged();
+//				
+//				//记录最后刷新时间
+//				//格式化日期
+//				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//				Date    curDate    =   new    Date(System.currentTimeMillis());//获取当前时间       
+//				String    str    =    sdf.format(curDate); 				
+//				msharePreferenceUtil.saveSharedPreferences("lasttime", str);
+//											
+//			}
+//			
+//			@Override
+//			public void onFailure(int arg0, String arg1) {
+//				// TODO Auto-generated method stub
+//				
+//				//停止刷新				
+//				Toast.makeText(getActivity(), "加载失败", Toast.LENGTH_SHORT).show();
+//				
+//				
+//			}
+//		});
+		
 	}	
 	
 	/**
@@ -242,28 +326,9 @@ public class MessageFragment extends BaseFragment implements Callback{
 	 */
 	public void getNewmsgData(){
 		
-		listItems.clear();
-		
-//		//取出上次刷新时间
-//		String lasttime = msharePreferenceUtil.loadStringSharedPreference("lasttime", "");
-//		if(null == lasttime || lasttime.length() == 0)
-//		{
-//			return;
-//		}
-//		
-//		//Log.i("tjc", "--->"+lasttime);
-//		
-//		//格式化日期
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		
-//		Date date  = null;
-//		try {
-//				date = sdf.parse(lasttime);
-//		} catch (ParseException e) {
-//		    e.printStackTrace();
-//		}  
-//		
-		BmobQuery query = new BmobQuery("ys_order");
+		//系统方式,方便快速
+		listItems.clear();		
+		BmobQuery<YSOrderModel> query = new BmobQuery<YSOrderModel>();
 
 		//按照时间降序
         query.order("-createdAt");
@@ -290,39 +355,112 @@ public class MessageFragment extends BaseFragment implements Callback{
 		}
 		
 		
-		query.findObjects(getActivity(), new FindCallback() {
+		query.findObjects(getActivity(), new FindListener<YSOrderModel>() {
 			
 			@Override
-			public void onSuccess(JSONArray arg0) {
+			public void onSuccess(List<YSOrderModel> arg0) {
 				// TODO Auto-generated method stub
 				
+				if(null == arg0){
+					return;
+				}
+				
 				//停止刷新
-				if(arg0.length() == 0)
+				if(arg0.size() == 0)
 				{
 					Toast.makeText(getActivity(), "没有最新订单", Toast.LENGTH_SHORT).show();						
 					return;
 				}else{
-					Toast.makeText(getActivity(), "加载"+arg0.length()+""+"条新订单", Toast.LENGTH_SHORT).show();	
+					Toast.makeText(getActivity(), "加载"+arg0.size()+""+"条新订单", Toast.LENGTH_SHORT).show();	
 				}
-				Log.i("tjc", arg0.toString());
+				//Log.i("tjc", arg0.toString());
 				
 				//刷新数据适配器
-				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
-				for (YSOrderModel ysOrderModel : orders) {
+				for (YSOrderModel ysOrderModel : arg0) {
 					listItems.add(ysOrderModel);
-				}				
+				}
+//				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
+//				for (YSOrderModel ysOrderModel : orders) {
+//					listItems.add(ysOrderModel);
+//				}				
 				orderAdapter.set_datasource(listItems);
 				orderAdapter.notifyDataSetChanged();
 				
 			}
 			
 			@Override
-			public void onFailure(int arg0, String arg1) {
+			public void onError(int code, String msg) {
 				// TODO Auto-generated method stub				
 				//停止刷新
 				Toast.makeText(getActivity(), "加载失败", Toast.LENGTH_SHORT).show();								
 			}
 		});
+		
+		
+		
+		//自定义方式查询
+//		listItems.clear();
+//		
+//		BmobQuery query = new BmobQuery("ys_order");
+//
+//		//按照时间降序
+//        query.order("-createdAt");
+//		query.setLimit(10);
+//		query.setSkip(0);
+//		//query.addWhereGreaterThan("createdAt", new BmobDate(date));
+//		query.addWhereLessThan("orderStatues", 1);
+//        //添加查询约束条件
+//        try {
+//			List<CityMsgEntity> listitems = db.findAll(CityMsgEntity.class);
+//			if(null != listitems){
+//			if(listitems.size()>0){				
+//				ArrayList<String> listitem = new ArrayList<String>();
+//				for(int i =0 ;i<listitems.size();i++){
+//					CityMsgEntity cityentity = listitems.get(i);
+//					listitem.add(cityentity.getCity_choice_name());
+//				}
+//				query.addWhereContainedIn("cityDest", listitem);
+//			}}
+//			
+//		} catch (DbException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		query.findObjects(getActivity(), new FindCallback() {
+//			
+//			@Override
+//			public void onSuccess(JSONArray arg0) {
+//				// TODO Auto-generated method stub
+//				
+//				//停止刷新
+//				if(arg0.length() == 0)
+//				{
+//					Toast.makeText(getActivity(), "没有最新订单", Toast.LENGTH_SHORT).show();						
+//					return;
+//				}else{
+//					Toast.makeText(getActivity(), "加载"+arg0.length()+""+"条新订单", Toast.LENGTH_SHORT).show();	
+//				}
+//				Log.i("tjc", arg0.toString());
+//				
+//				//刷新数据适配器
+//				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
+//				for (YSOrderModel ysOrderModel : orders) {
+//					listItems.add(ysOrderModel);
+//				}				
+//				orderAdapter.set_datasource(listItems);
+//				orderAdapter.notifyDataSetChanged();
+//				
+//			}
+//			
+//			@Override
+//			public void onFailure(int arg0, String arg1) {
+//				// TODO Auto-generated method stub				
+//				//停止刷新
+//				Toast.makeText(getActivity(), "加载失败", Toast.LENGTH_SHORT).show();								
+//			}
+//		});
 						
 	}
 	
@@ -354,18 +492,19 @@ public class MessageFragment extends BaseFragment implements Callback{
 				final ProgressDialog progressDialog =ProgressDialog.show(getActivity(), 
 						"一键抢单", "正在抢单...");
 				
-				BmobQuery query = new BmobQuery("ys_order");
+				BmobQuery<YSOrderModel> query = new BmobQuery<YSOrderModel>();
 				query.addWhereContains("objectId", orderId);
-				query.findObjects(getActivity(), new FindCallback() {
+				
+				query.getObject(getActivity(), orderId, new GetListener<YSOrderModel>()  {
 
 				    @Override
-				    public void onSuccess(JSONArray arg0) {
+				    public void onSuccess(YSOrderModel arg0) {
 				        // TODO Auto-generated method stub
 				    	
-				    	List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
-				    	YSOrderModel object = orders.get(0);
-				    	Log.i("tjc--->", object.getOrderStatues()+"");
-				    		if(object.getOrderStatues() == 0){
+				    	if(null == arg0){
+				    		return;
+				    	}				    					    
+				    		if(arg0.getOrderStatues() == 0){
 				    			
 				    			//抢单
 								YSOrderModel updateorder = new YSOrderModel();
@@ -396,6 +535,52 @@ public class MessageFragment extends BaseFragment implements Callback{
 								    		
 								    }
 								});
+				
+				
+//				query.findObjects(getActivity(), new FindListener<YSOrderModel>() {
+//
+//				    @Override
+//				    public void onSuccess(List<YSOrderModel> arg0) {
+//				        // TODO Auto-generated method stub
+//				    	
+//				    	if(null == arg0){
+//				    		return;
+//				    	}
+//				    	
+//				    	List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
+//				    	YSOrderModel object = orders.get(0);
+//				    	Log.i("tjc--->", object.getOrderStatues()+"");
+//				    		if(object.getOrderStatues() == 0){
+//				    			
+//				    			//抢单
+//								YSOrderModel updateorder = new YSOrderModel();
+//								updateorder.setOrderStatues(YSOrderStatus.YSOrder_Select);
+//								updateorder.setOrderPrice(ysoder.getOrderPrice());
+//
+//								String orderGo = msharePreferenceUtil.loadStringSharedPreference("userName", "");
+//								if(null != orderGo && !TextUtils.isEmpty(orderGo)){									
+//									updateorder.setOrderGoPhone(orderGo);
+//								}else{
+//						    			progressDialog.dismiss();
+//									Toast.makeText(getActivity(), "抢单失败,请刷新后再尝试", Toast.LENGTH_SHORT).show();
+//									return;
+//								}
+//								updateorder.update(getActivity(), orderId, new UpdateListener() {
+//					
+//								    @Override
+//								    public void onSuccess() {
+//								        // TODO Auto-generated method stub
+//								    		progressDialog.dismiss();
+//								    		handler.sendEmptyMessage(MSG_OK);			    		
+//								    }
+//					
+//								    @Override
+//								    public void onFailure(int code, String msg) {
+//								        // TODO Auto-generated method stub
+//								    		progressDialog.dismiss();
+//								    		
+//								    }
+//								});
 				    			
 				    			
 				    			

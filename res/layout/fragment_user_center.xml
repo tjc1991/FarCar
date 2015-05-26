@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/wemall_user_center_empty"
-                    android:layout_marginTop="2.0dip"
+                    android:layout_marginTop="15.0dip"
                     android:layout_toRightOf="@id/user_center_user_icon"
                     android:text="@string/wemall_useraddress"
                     android:textColor="@color/gray_999999"

@@ -59,7 +59,7 @@ public class OrderMsgShowActivity extends EBaseActivity implements OnClickListen
 	private String mEngineType = SpeechConstant.TYPE_CLOUD;
 	
 	//30s抢单时间
-	private int retain_time = 15;
+	private int retain_time = 10;
 	
 	private static final int EVERY_TIME = 10;
 	
@@ -117,7 +117,7 @@ public class OrderMsgShowActivity extends EBaseActivity implements OnClickListen
 		orderGo = msharePreferenceUtil.loadStringSharedPreference("userName", "");
 		
 		//初始化抢单时间
-		retain_time = 15;
+		retain_time = 10;
 		
 		initMyLatout();
 		

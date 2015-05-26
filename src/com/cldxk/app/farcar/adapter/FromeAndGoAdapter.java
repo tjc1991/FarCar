@@ -73,6 +73,7 @@ public class FromeAndGoAdapter extends BaseAdapter implements OnClickListener{
 			  holder.statusTv = ((TextView) convertView.findViewById(R.id.carmsg_status));
 			  holder.phoneImg = ((ImageView) convertView.findViewById(R.id.carmsg_phone));
 			  holder.priceTv = (TextView) convertView.findViewById(R.id.ys_order_money);
+			  holder.orderdate = (TextView) convertView.findViewById(R.id.ys_order_date);
 			  //设置标记
 			  convertView.setTag(holder);
         }else{
@@ -88,19 +89,27 @@ public class FromeAndGoAdapter extends BaseAdapter implements OnClickListener{
         holder.goTv.setText(orderitem.getCityDest());
         holder.fromTv.setText(orderitem.getCityFrom()); 
         holder.priceTv.setText("预约路费:"+orderitem.getOrderPrice()+"");
-        
-        if(orderitem.getOrderStatues() == YSOrderStatus.YSOrder_Select){
-        		holder.statusTv.setText("已抢单");
-        }else if(orderitem.getOrderStatues() == YSOrderStatus.YSOrder_Pay){
-        		holder.statusTv.setText("已支付完成");
-        }else{
-        		holder.statusTv.setText("未接单");
-        }
+        Log.i("tjc", "----->p="+orderitem.getOrderPrice()+"");
+        holder.orderdate.setText(orderitem.getCreatedAt());
         
         holder.phoneImg.setBackgroundResource(R.drawable.call_image);
         //设置按钮点击事件
         holder.phoneImg.setTag(position);
         holder.phoneImg.setOnClickListener(this);
+        
+        if(orderitem.getOrderStatues() == YSOrderStatus.YSOrder_Select){
+        		holder.statusTv.setText("已抢单");
+        }else if(orderitem.getOrderStatues() == YSOrderStatus.YSOrder_Pay){
+        		holder.statusTv.setText("已支付完成");
+        		holder.phoneImg.setVisibility(View.GONE);
+        }else{
+        		holder.statusTv.setText("未接单");
+        }
+        
+//        holder.phoneImg.setBackgroundResource(R.drawable.call_image);
+//        //设置按钮点击事件
+//        holder.phoneImg.setTag(position);
+//        holder.phoneImg.setOnClickListener(this);
         		
 		return convertView;
 	}
@@ -114,6 +123,7 @@ public class FromeAndGoAdapter extends BaseAdapter implements OnClickListener{
 		TextView statusTv;
 		ImageView phoneImg;
 		TextView  priceTv;
+		TextView  orderdate;
 	}
 	
 	   /**

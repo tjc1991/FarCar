@@ -43,9 +43,9 @@ public class YSOrderModel extends BmobObject implements Serializable{
 	
 	
 	//设置数据库表名
-	public YSOrderModel(){
-		this.setTableName("ys_order");
-	}
+//	public YSOrderModel(){
+//		this.setTableName("ys_order");
+//	}
 
 	public String getCityFrom() {
 		return cityFrom;

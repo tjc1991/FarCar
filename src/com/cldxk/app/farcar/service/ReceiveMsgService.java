@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.listener.FindCallback;
+import cn.bmob.v3.listener.FindListener;
 
 import com.alibaba.fastjson.JSON;
 import com.cldxk.app.EApplication;
@@ -249,8 +250,7 @@ public class ReceiveMsgService extends Service implements Runnable{
 		
 		Intent service = new Intent("com.cldxk.app.farcar.service.ReceiveMsgService");
 		context.stopService(service);
-		
-		
+				
 	}
 	
 	public void getNewmsgData(){
@@ -274,7 +274,7 @@ public class ReceiveMsgService extends Service implements Runnable{
 		
 //		//Log.i("tjc", "date--->"+new BmobDate(date).getDate());
 		
-		BmobQuery query = new BmobQuery("ys_order");
+		BmobQuery<YSOrderModel> query = new BmobQuery<YSOrderModel>();
 		query.addWhereLessThan("orderStatues", 1);
 		query.addWhereGreaterThan("createdAt", new BmobDate(date));
 		
@@ -296,25 +296,29 @@ public class ReceiveMsgService extends Service implements Runnable{
 			e.printStackTrace();
 		}
 		
-		query.findObjects(getApplicationContext(), new FindCallback() {
+		query.findObjects(getApplicationContext(), new FindListener<YSOrderModel>() {
 			
 			@Override
-			public void onSuccess(JSONArray arg0) {
+			public void onSuccess(List<YSOrderModel> arg0) {
 				// TODO Auto-generated method stub
 				
+				if(null == arg0){
+					return ;
+				}
+				
 				//没有数据直接返回
-				if(arg0.length() == 0)
+				if(arg0.size() == 0)
 				{
 					return;						
 				}
-				Log.i("tjc", arg0.toString());
+				//Log.i("tjc", arg0.toString());
 				
 				//清空list数据
 				listItems.clear();
 				
 				//刷新数据适配器
-				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
-				for (YSOrderModel ysOrderModel : orders) {
+				//List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
+				for (YSOrderModel ysOrderModel : arg0) {
 					listItems.add(ysOrderModel);
 					
 				}
@@ -344,7 +348,7 @@ public class ReceiveMsgService extends Service implements Runnable{
 			}
 			
 			@Override
-			public void onFailure(int arg0, String arg1) {
+			public void onError(int arg0, String arg1){
 				// TODO Auto-generated method stub
 								
 			}
@@ -352,6 +356,109 @@ public class ReceiveMsgService extends Service implements Runnable{
 		
 				
 	}
+	
+	
+	
+	
+//	public void getNewmsgData(){
+//		
+//		//取出上次刷新时间
+//		String lasttime = EApplication.getMsharePreferenceUtil().loadStringSharedPreference("lasttime", "");
+//		if(null == lasttime || lasttime.length() == 0)
+//		{
+//			return;
+//		}
+//	
+//		//格式化日期
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		
+//		Date date  = null;
+//		try {
+//				date = sdf.parse(lasttime);
+//		} catch (ParseException e) {
+//		    e.printStackTrace();
+//		}  
+//		
+////		//Log.i("tjc", "date--->"+new BmobDate(date).getDate());
+//		
+//		BmobQuery query = new BmobQuery("ys_order");
+//		query.addWhereLessThan("orderStatues", 1);
+//		query.addWhereGreaterThan("createdAt", new BmobDate(date));
+//		
+//		//添加复杂查询条件
+//        try {
+//			List<CityMsgEntity> listitems = db.findAll(CityMsgEntity.class);
+//			if(null != listitems){
+//			if(listitems.size()>0){				
+//				ArrayList<String> listitem = new ArrayList<String>();
+//				for(int i =0 ;i<listitems.size();i++){
+//					CityMsgEntity cityentity = listitems.get(i);
+//					listitem.add(cityentity.getCity_choice_name());
+//				}
+//				query.addWhereContainedIn("cityDest", listitem);
+//			}}
+//			
+//		} catch (DbException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		query.findObjects(getApplicationContext(), new FindCallback() {
+//			
+//			@Override
+//			public void onSuccess(JSONArray arg0) {
+//				// TODO Auto-generated method stub
+//				
+//				//没有数据直接返回
+//				if(arg0.length() == 0)
+//				{
+//					return;						
+//				}
+//				Log.i("tjc", arg0.toString());
+//				
+//				//清空list数据
+//				listItems.clear();
+//				
+//				//刷新数据适配器
+//				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
+//				for (YSOrderModel ysOrderModel : orders) {
+//					listItems.add(ysOrderModel);
+//					
+//				}
+//				
+//				
+//				//记录最后刷新时间
+//				//格式化日期
+//				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//				Date    curDate    =   new    Date(System.currentTimeMillis());//获取当前时间       
+//				String    str    =    sdf.format(curDate); 				
+//				EApplication.getMsharePreferenceUtil().saveSharedPreferences("lasttime", str);
+//				
+//				//发送handler调用语音播放
+//				
+//				//获得系统的消息队列
+//				Message message= handler.obtainMessage();
+//				
+//				//获取任务的Id
+//				message.what = YSOrderType.GET_NEWORDER;
+//				//发送消息
+//				message.obj = listItems;
+//				
+//				//执行完毕,发送消息到主线程
+//				handler.sendMessage(message);
+//				
+//				
+//			}
+//			
+//			@Override
+//			public void onFailure(int arg0, String arg1) {
+//				// TODO Auto-generated method stub
+//								
+//			}
+//		});
+//		
+//				
+//	}
 	
 	
 	

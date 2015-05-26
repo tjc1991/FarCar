@@ -28,6 +28,7 @@ import android.widget.Toast;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.listener.FindCallback;
+import cn.bmob.v3.listener.FindListener;
 
 import com.alibaba.fastjson.JSON;
 import com.cldxk.app.base.EBaseActivity;
@@ -150,12 +151,13 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 	
 	public void GetCarMsgData(){
 		
+		//系统方式,方便高效
 		final ProgressDialog dialog =ProgressDialog.show(this, 
 				"我的订单查询", "正在查询...");
 		dialog.setCancelable(false);
 		
 		//查询服务器获取数据
-		BmobQuery query = new BmobQuery("ys_order");
+		BmobQuery<YSOrderModel> query = new BmobQuery<YSOrderModel>();
 		//按照时间降序
         query.order("-createdAt");
         
@@ -170,9 +172,9 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 		query.setSkip(0);
 		
       //执行查询，第一个参数为上下文，第二个参数为查找的回调
-        query.findObjects(this, new FindCallback() {
+        query.findObjects(this, new FindListener<YSOrderModel>() {
 			
-			public void onSuccess(JSONArray arg0) {
+			public void onSuccess(List<YSOrderModel> arg0) {
 				// TODO Auto-generated method stub
 				
 				dialog.dismiss();
@@ -180,37 +182,42 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 				//停止刷新
 				stoponLoad();
 				
-				if(arg0.length()<= 0){
+				if(null == arg0){
+					return;
+				}
+				
+				if(arg0.size()<= 0){
 					Toast.makeText(getApplicationContext(), "没有最新数据了", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				if(arg0.length() == page_size){
+				if(arg0.size() == page_size){
 					//当前索引自加1
 					cur_page++;
 					Log.i("tjc", "-->"+cur_page+"");
 				}
-				Toast.makeText(getApplicationContext(), "加载"+arg0.length()+""+"条订单", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "加载"+arg0.size()+""+"条订单", Toast.LENGTH_SHORT).show();
 				Log.i("tjc", arg0.toString());
 								
-				com.alibaba.fastjson.JSONArray jsonarray = JSON.parseArray(arg0.toString());
+				//com.alibaba.fastjson.JSONArray jsonarray = JSON.parseArray(arg0.toString());
 				
-				com.alibaba.fastjson.JSONObject jsonobj = jsonarray.getJSONObject(0);
+				YSOrderModel jsonobj = arg0.get(0);
 				//保存下拉最新数据时间
-				last_date = jsonobj.getString("createdAt");
+				last_date = jsonobj.getCreatedAt();
 				
-				com.alibaba.fastjson.JSONObject pullup_jsonobj = jsonarray.getJSONObject(arg0.length()-1);
+				YSOrderModel pullup_jsonobj = arg0.get(arg0.size()-1);
 				//保存上拉最新数据时间
-				pullup_last_date = pullup_jsonobj.getString("createdAt");
+				pullup_last_date = pullup_jsonobj.getCreatedAt();
 				
 				//刷新数据适配器
-				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);				
+//				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);				
 								
 				Log.i("tjc", "date="+last_date);
 				Log.i("tjc", "pullup_last_date="+pullup_last_date);
 				
-				for (YSOrderModel ysOrderModel : orders) {
+				for (YSOrderModel ysOrderModel : arg0) {
 					
 					listItems.add(ysOrderModel);
+					Log.i("tjc", "price="+ysOrderModel.getOrderPrice()+"");
 					
 				}
 								
@@ -222,7 +229,7 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 			}
 			
 			@Override
-			public void onFailure(int arg0, String arg1) {
+			public void onError(int code, String msg) {
 				// TODO Auto-generated method stub
 				
 				dialog.dismiss();
@@ -234,6 +241,94 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 
 		});
 		
+		
+		
+		
+		//自定义方式
+//		final ProgressDialog dialog =ProgressDialog.show(this, 
+//				"我的订单查询", "正在查询...");
+//		dialog.setCancelable(false);
+//		
+//		//查询服务器获取数据
+//		BmobQuery query = new BmobQuery("ys_order");
+//		//按照时间降序
+//        query.order("-createdAt");
+//        
+//		//添加查询参数
+//		if(myphone != null){		
+//			//key /value
+//			query.addWhereContains("orderGoPhone", myphone);
+//		}
+//		
+//		//分页查询
+//		query.setLimit(page_size);
+//		query.setSkip(0);
+//		
+//      //执行查询，第一个参数为上下文，第二个参数为查找的回调
+//        query.findObjects(this, new FindCallback() {
+//			
+//			public void onSuccess(JSONArray arg0) {
+//				// TODO Auto-generated method stub
+//				
+//				dialog.dismiss();
+//				
+//				//停止刷新
+//				stoponLoad();
+//				
+//				if(arg0.length()<= 0){
+//					Toast.makeText(getApplicationContext(), "没有最新数据了", Toast.LENGTH_SHORT).show();
+//					return;
+//				}
+//				if(arg0.length() == page_size){
+//					//当前索引自加1
+//					cur_page++;
+//					Log.i("tjc", "-->"+cur_page+"");
+//				}
+//				Toast.makeText(getApplicationContext(), "加载"+arg0.length()+""+"条订单", Toast.LENGTH_SHORT).show();
+//				Log.i("tjc", arg0.toString());
+//								
+//				com.alibaba.fastjson.JSONArray jsonarray = JSON.parseArray(arg0.toString());
+//				
+//				com.alibaba.fastjson.JSONObject jsonobj = jsonarray.getJSONObject(0);
+//				//保存下拉最新数据时间
+//				last_date = jsonobj.getString("createdAt");
+//				
+//				com.alibaba.fastjson.JSONObject pullup_jsonobj = jsonarray.getJSONObject(arg0.length()-1);
+//				//保存上拉最新数据时间
+//				pullup_last_date = pullup_jsonobj.getString("createdAt");
+//				
+//				//刷新数据适配器
+//				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);				
+//								
+//				Log.i("tjc", "date="+last_date);
+//				Log.i("tjc", "pullup_last_date="+pullup_last_date);
+//				
+//				for (YSOrderModel ysOrderModel : orders) {
+//					
+//					listItems.add(ysOrderModel);
+//					
+//				}
+//								
+//				orderAdapter.set_datasource(listItems);
+//				orderAdapter.notifyDataSetChanged();
+//				
+//				//当前索引+1
+//				//cur_page++;
+//			}
+//			
+//			@Override
+//			public void onFailure(int arg0, String arg1) {
+//				// TODO Auto-generated method stub
+//				
+//				dialog.dismiss();
+//				//停止刷新
+//				stoponLoad();
+//				Toast.makeText(getApplicationContext(), "加载失败", Toast.LENGTH_SHORT).show();
+//								
+//			}
+//
+//		});
+		
 	}
 	
 	/**
@@ -242,7 +337,8 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 	 */
 	public void getNewmsgData(){
 		
-		BmobQuery query = new BmobQuery("ys_order");
+		//系统方式,方便便捷
+		BmobQuery<YSOrderModel> query = new BmobQuery<YSOrderModel>();
 		
 		if(myphone != null){		
 			query.addWhereContains("orderGoPhone", myphone);
@@ -265,31 +361,35 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 			
 		}
 
-		query.findObjects(this, new FindCallback() {
+		query.findObjects(this, new FindListener<YSOrderModel>() {
 			
-			public void onSuccess(JSONArray arg0) {
+			public void onSuccess(List<YSOrderModel> arg0) {
 				// TODO Auto-generated method stub
 				
 				//停止刷新
 				stoponLoad();
-				if(arg0.length() <= 0)
+				if(null == arg0){
+					return;
+				}
+				
+				if(arg0.size() <= 0)
 				{
 					Toast.makeText(getApplicationContext(), "没有最新订单", Toast.LENGTH_SHORT).show();						
 					return;
 				}else
 				{
-					int cur_length = arg0.length();	
+					int cur_length = arg0.size();	
 					
 					cur_date = last_date;
 					
-					com.alibaba.fastjson.JSONArray jsonarray = JSON.parseArray(arg0.toString());
+					//com.alibaba.fastjson.JSONArray jsonarray = JSON.parseArray(arg0.toString());
 					
-					com.alibaba.fastjson.JSONObject jsonobj = jsonarray.getJSONObject(cur_length-1);
+					YSOrderModel jsonobj = arg0.get(cur_length-1);
 					
 					//Log.i("tjc", arg0.toString());
 					
 					//保存最新数据时间
-					last_date = jsonobj.getString("createdAt");
+					last_date = jsonobj.getCreatedAt();
 					//Log.i("tjc", "---->haha="+last_date);
 					
 					if(cur_date.equals(last_date))
@@ -300,19 +400,19 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 					cur_length=Math.abs(cur_length-1);
 					Toast.makeText(getApplicationContext(), "加载"+cur_length+""+"条新订单", Toast.LENGTH_SHORT).show();	
 															
-					for(int i =1;i<jsonarray.size();i++)
+					for(int i =1;i<arg0.size();i++)
 					{						
-						com.alibaba.fastjson.JSONObject jsobj = jsonarray.getJSONObject(i);
+						YSOrderModel jsobj = arg0.get(i);
 						YSOrderModel model = new YSOrderModel();
-						model.setTelePhone(jsobj.getString("telePhone"));
-						model.setOrderYuYueMsg(jsobj.getString("orderYuYueMsg"));
-						model.setCityFrom(jsobj.getString("cityFrom"));
-						model.setObjectId(jsobj.getString("objectId"));
-						model.setOrderType(jsobj.getIntValue("OrderType"));
-						model.setOrderPrice(jsobj.getIntValue("orderPrice"));
-						model.setCityDest(jsobj.getString("cityDest"));
-						model.setOrderGoPhone(jsobj.getString("orderGoPhone"));
-						model.setOrderStatues(jsobj.getIntValue("orderStatues"));
+						model.setTelePhone(jsobj.getTelePhone());
+						model.setOrderYuYueMsg(jsobj.getOrderYuYueMsg());
+						model.setCityFrom(jsobj.getCityFrom());
+						model.setObjectId(jsobj.getObjectId());
+						model.setOrderType(jsobj.getOrderType());
+						model.setOrderPrice(jsobj.getOrderPrice());
+						model.setCityDest(jsobj.getCityDest());
+						model.setOrderGoPhone(jsobj.getOrderGoPhone());
+						model.setOrderStatues(jsobj.getOrderStatues());
 						listItems.add(0,model);						
 					}
 					orderAdapter.set_datasource(listItems);
@@ -322,7 +422,7 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 			}
 			
 			@Override
-			public void onFailure(int arg0, String arg1) {
+			public void onError(int code, String msg) {
 				// TODO Auto-generated method stub
 				
 				//停止刷新
@@ -330,6 +430,97 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 				Toast.makeText(getApplicationContext(), "加载失败", Toast.LENGTH_SHORT).show();			
 			}
 		});
+		
+		
+		//自定义方式
+//		BmobQuery query = new BmobQuery("ys_order");
+//		
+//		if(myphone != null){		
+//			query.addWhereContains("orderGoPhone", myphone);
+//		}
+//		
+//		if(!last_date.equals("") && !TextUtils.isEmpty(last_date)){
+//			
+//			//Log.i("tjc", "--->last="+last_date);
+//			
+//			//构造查询条件
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+//			Date date  = null;
+//			try {
+//			    date = sdf.parse(last_date);
+//			} catch (ParseException e) {
+//			    e.printStackTrace();
+//			}  
+//			//这是查询时间之后的数据
+//			query.addWhereGreaterThan("createdAt",new BmobDate(date));
+//			
+//		}
+//
+//		query.findObjects(this, new FindCallback() {
+//			
+//			public void onSuccess(JSONArray arg0) {
+//				// TODO Auto-generated method stub
+//				
+//				//停止刷新
+//				stoponLoad();
+//				if(arg0.length() <= 0)
+//				{
+//					Toast.makeText(getApplicationContext(), "没有最新订单", Toast.LENGTH_SHORT).show();						
+//					return;
+//				}else
+//				{
+//					int cur_length = arg0.length();	
+//					
+//					cur_date = last_date;
+//					
+//					com.alibaba.fastjson.JSONArray jsonarray = JSON.parseArray(arg0.toString());
+//					
+//					com.alibaba.fastjson.JSONObject jsonobj = jsonarray.getJSONObject(cur_length-1);
+//					
+//					//Log.i("tjc", arg0.toString());
+//					
+//					//保存最新数据时间
+//					last_date = jsonobj.getString("createdAt");
+//					//Log.i("tjc", "---->haha="+last_date);
+//					
+//					if(cur_date.equals(last_date))
+//					{											
+//						Toast.makeText(getApplicationContext(), "没有最新订单", Toast.LENGTH_SHORT).show();						
+//						return;
+//					}
+//					cur_length=Math.abs(cur_length-1);
+//					Toast.makeText(getApplicationContext(), "加载"+cur_length+""+"条新订单", Toast.LENGTH_SHORT).show();	
+//															
+//					for(int i =1;i<jsonarray.size();i++)
+//					{						
+//						com.alibaba.fastjson.JSONObject jsobj = jsonarray.getJSONObject(i);
+//						YSOrderModel model = new YSOrderModel();
+//						model.setTelePhone(jsobj.getString("telePhone"));
+//						model.setOrderYuYueMsg(jsobj.getString("orderYuYueMsg"));
+//						model.setCityFrom(jsobj.getString("cityFrom"));
+//						model.setObjectId(jsobj.getString("objectId"));
+//						model.setOrderType(jsobj.getIntValue("OrderType"));
+//						model.setOrderPrice(jsobj.getIntValue("orderPrice"));
+//						model.setCityDest(jsobj.getString("cityDest"));
+//						model.setOrderGoPhone(jsobj.getString("orderGoPhone"));
+//						model.setOrderStatues(jsobj.getIntValue("orderStatues"));
+//						listItems.add(0,model);						
+//					}
+//					orderAdapter.set_datasource(listItems);
+//					orderAdapter.notifyDataSetChanged();
+//				}				
+//				
+//			}
+//			
+//			@Override
+//			public void onFailure(int arg0, String arg1) {
+//				// TODO Auto-generated method stub
+//				
+//				//停止刷新
+//				stoponLoad();
+//				Toast.makeText(getApplicationContext(), "加载失败", Toast.LENGTH_SHORT).show();			
+//			}
+//		});
 					
 	}
 
@@ -337,8 +528,9 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 	 * 上拉加载历史数据,分页
 	 * */	
 	public void getHistorymsgData(final int page){
-	
-		BmobQuery query = new BmobQuery("ys_order");
+		
+		//系统方式
+		BmobQuery<YSOrderModel> query = new BmobQuery<YSOrderModel>();
 		
 		query.order("-createdAt");
 		if(myphone != null){		
@@ -366,33 +558,38 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 			
 		}
 
-		query.findObjects(this, new FindCallback() {
+		query.findObjects(this, new FindListener<YSOrderModel>() {
 		
 		@Override
-		public void onSuccess(JSONArray arg0) {
+		public void onSuccess(List<YSOrderModel> arg0) {
 			// TODO Auto-generated method stub
 			
 			//停止刷新
 			stoponLoad();
-			if(arg0.length() <= 0)
+			
+			if(null == arg0){
+				return;
+			}
+			
+			if(arg0.size() <= 0)
 			{
 				Toast.makeText(getApplicationContext(), "没有最新订单", Toast.LENGTH_SHORT).show();						
 				return;
 			}else{
 				
-				int cur_length = arg0.length();	
+				int cur_length = arg0.size();	
 				
 				//Log.i("tjc", "cur_length="+cur_length+"");
 				pullup_cur_date = pullup_last_date;
 				
-				com.alibaba.fastjson.JSONArray jsonarray = JSON.parseArray(arg0.toString());
+				//com.alibaba.fastjson.JSONArray jsonarray = JSON.parseArray(arg0.toString());
 				
-				com.alibaba.fastjson.JSONObject jsonobj = jsonarray.getJSONObject(cur_length-1);
+				YSOrderModel jsonobj = arg0.get(cur_length-1);
 				
 				//Log.i("tjc", arg0.toString());
 				
 				//保存最新数据时间
-				pullup_last_date = jsonobj.getString("createdAt");
+				pullup_last_date = jsonobj.getCreatedAt();
 				//Log.i("tjc", "---->haha="+pullup_last_date);
 				
 				if(pullup_cur_date.equals(pullup_last_date))
@@ -410,19 +607,19 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 				//cur_length=Math.abs(cur_length-1);
 				Toast.makeText(getApplicationContext(), "加载"+cur_length+""+"条新订单", Toast.LENGTH_SHORT).show();	
 														
-				for(int i =0;i<jsonarray.size();i++)
+				for(int i =0;i<arg0.size();i++)
 				{						
-					com.alibaba.fastjson.JSONObject jsobj = jsonarray.getJSONObject(i);
+					YSOrderModel jsobj = arg0.get(i);
 					YSOrderModel model = new YSOrderModel();
-					model.setTelePhone(jsobj.getString("telePhone"));
-					model.setOrderYuYueMsg(jsobj.getString("orderYuYueMsg"));
-					model.setCityFrom(jsobj.getString("cityFrom"));
-					model.setObjectId(jsobj.getString("objectId"));
-					model.setOrderType(jsobj.getIntValue("OrderType"));
-					model.setOrderPrice(jsobj.getIntValue("orderPrice"));
-					model.setCityDest(jsobj.getString("cityDest"));
-					model.setOrderGoPhone(jsobj.getString("orderGoPhone"));
-					model.setOrderStatues(jsobj.getIntValue("orderStatues"));
+					model.setTelePhone(jsobj.getTelePhone());
+					model.setOrderYuYueMsg(jsobj.getOrderYuYueMsg());
+					model.setCityFrom(jsobj.getCityFrom());
+					model.setObjectId(jsobj.getObjectId());
+					model.setOrderType(jsobj.getOrderType());
+					model.setOrderPrice(jsobj.getOrderPrice());
+					model.setCityDest(jsobj.getCityDest());
+					model.setOrderGoPhone(jsobj.getOrderGoPhone());
+					model.setOrderStatues(jsobj.getOrderStatues());
 					listItems.add(model);						
 				}
 				orderAdapter.set_datasource(listItems);
@@ -431,7 +628,7 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 }
 
 	@Override
-	public void onFailure(int arg0, String arg1) {
+	public void onError(int code, String msg) {
 		// TODO Auto-generated method stub
 		
 		//停止刷新
@@ -440,6 +637,112 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 			
 	}
 	});
+
+		
+		
+	//自定义方式
+//		BmobQuery query = new BmobQuery("ys_order");
+//		
+//		query.order("-createdAt");
+//		if(myphone != null){		
+//		query.addWhereContains("orderGoPhone", myphone);
+//		}
+//		//分页查询
+//		query.setLimit(page_size);
+//		//Log.i("tjc", "-->"+page+""+"-->"+cur_page+""+"-->"+page_size+"");
+//		//query.setSkip(page*page_size);
+//		
+//		if(!pullup_last_date.equals("") && !TextUtils.isEmpty(pullup_last_date)){
+//			
+//			//Log.i("tjc", "--->pullup_last_date="+pullup_last_date);
+//			
+//			//构造查询条件
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+//			Date date  = null;
+//			try {
+//			    date = sdf.parse(pullup_last_date);
+//			} catch (ParseException e) {
+//			    e.printStackTrace();
+//			}  
+//			//这是查询时间之后的数据
+//			query.addWhereLessThan("createdAt",new BmobDate(date));
+//			
+//		}
+//
+//		query.findObjects(this, new FindCallback() {
+//		
+//		@Override
+//		public void onSuccess(JSONArray arg0) {
+//			// TODO Auto-generated method stub
+//			
+//			//停止刷新
+//			stoponLoad();
+//			if(arg0.length() <= 0)
+//			{
+//				Toast.makeText(getApplicationContext(), "没有最新订单", Toast.LENGTH_SHORT).show();						
+//				return;
+//			}else{
+//				
+//				int cur_length = arg0.length();	
+//				
+//				//Log.i("tjc", "cur_length="+cur_length+"");
+//				pullup_cur_date = pullup_last_date;
+//				
+//				com.alibaba.fastjson.JSONArray jsonarray = JSON.parseArray(arg0.toString());
+//				
+//				com.alibaba.fastjson.JSONObject jsonobj = jsonarray.getJSONObject(cur_length-1);
+//				
+//				//Log.i("tjc", arg0.toString());
+//				
+//				//保存最新数据时间
+//				pullup_last_date = jsonobj.getString("createdAt");
+//				//Log.i("tjc", "---->haha="+pullup_last_date);
+//				
+//				if(pullup_cur_date.equals(pullup_last_date))
+//				{											
+//					Toast.makeText(getApplicationContext(), "没有最新订单", Toast.LENGTH_SHORT).show();						
+//					return;
+//				}
+//				
+//				if(cur_length == page_size){
+//					//当前索引自加1
+//					cur_page++;
+//					//Log.i("tjc", "-->"+cur_page+"");
+//				}
+//				
+//				//cur_length=Math.abs(cur_length-1);
+//				Toast.makeText(getApplicationContext(), "加载"+cur_length+""+"条新订单", Toast.LENGTH_SHORT).show();	
+//														
+//				for(int i =0;i<jsonarray.size();i++)
+//				{						
+//					com.alibaba.fastjson.JSONObject jsobj = jsonarray.getJSONObject(i);
+//					YSOrderModel model = new YSOrderModel();
+//					model.setTelePhone(jsobj.getString("telePhone"));
+//					model.setOrderYuYueMsg(jsobj.getString("orderYuYueMsg"));
+//					model.setCityFrom(jsobj.getString("cityFrom"));
+//					model.setObjectId(jsobj.getString("objectId"));
+//					model.setOrderType(jsobj.getIntValue("OrderType"));
+//					model.setOrderPrice(jsobj.getIntValue("orderPrice"));
+//					model.setCityDest(jsobj.getString("cityDest"));
+//					model.setOrderGoPhone(jsobj.getString("orderGoPhone"));
+//					model.setOrderStatues(jsobj.getIntValue("orderStatues"));
+//					listItems.add(model);						
+//				}
+//				orderAdapter.set_datasource(listItems);
+//				orderAdapter.notifyDataSetChanged();																
+//			}
+//}
+//
+//	@Override
+//	public void onFailure(int arg0, String arg1) {
+//		// TODO Auto-generated method stub
+//		
+//		//停止刷新
+//		stoponLoad();
+//		Toast.makeText(getApplicationContext(), "加载失败", Toast.LENGTH_SHORT).show();
+//			
+//	}
+//	});
 
 	
 }

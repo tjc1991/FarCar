@@ -84,7 +84,8 @@
         <activity android:name="com.cldxk.plug.user.LoginActivity"></activity>
         <activity android:name="com.cldxk.plug.user.RecoveryPasswdActivity"></activity>
         <activity android:name="com.cldxk.plug.user.RegistActivity"></activity>
-        <activity android:name="com.cldxk.farcar.ui.OrderMsgShowActivity"></activity>                  
+        <activity android:name="com.cldxk.farcar.ui.OrderMsgShowActivity"
+            android:launchMode="singleTop"></activity>                  
         <activity android:name="com.cldxk.farcar.ui.AboutActivity"></activity> 
         <activity android:name="com.cldxk.farcar.ui.SfzActivity"></activity>
         <activity android:name="com.cldxk.farcar.ui.JszActivity"></activity>  
